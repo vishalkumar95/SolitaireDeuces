@@ -1,5 +1,8 @@
 package deuces;
 
+import java.awt.Dimension;
+import java.util.Random;
+
 import ks.client.gamefactory.GameWindow;
 import ks.common.controller.SolitaireMouseMotionAdapter;
 import ks.common.controller.SolitaireReleasedAdapter;
@@ -47,8 +50,13 @@ public class Dueces extends Solitaire {
 	/** To select a new deck type uncomment this method */
 	@Override
 	public String getDeckType() {
-			return "tiny";
+			return "oxymoron";
 	}
+	
+	@Override
+	public Dimension getPreferredSize() {
+		  return new Dimension (2000, 1000);
+		}
 	
 	/**
 	 * Prepare the controllers.
@@ -58,7 +66,44 @@ public class Dueces extends Solitaire {
 		deckView.setMouseAdapter(new DuecesDeckController (this, multiDeck, wastePile));
 		deckView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		deckView.setUndoAdapter (new SolitaireUndoAdapter(this));
-
+		
+		// Initialize Controllers for WastePile
+		wastePileView.setMouseAdapter(new DuecesWastePileController (this, wastePileView));
+		wastePileView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		wastePileView.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		// Initialize Controllers for Foundation
+		pileView1.setMouseAdapter(new DuecesFoundationController (this, pileView1));
+		pileView1.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		pileView1.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		pileView2.setMouseAdapter(new DuecesFoundationController (this, pileView2));
+		pileView2.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		pileView2.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		pileView3.setMouseAdapter(new DuecesFoundationController (this, pileView3));
+		pileView3.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		pileView3.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		pileView4.setMouseAdapter(new DuecesFoundationController (this, pileView4));
+		pileView4.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		pileView4.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		pileView5.setMouseAdapter(new DuecesFoundationController (this, pileView5));
+		pileView5.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		pileView5.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		pileView6.setMouseAdapter(new DuecesFoundationController (this, pileView6));
+		pileView6.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		pileView6.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		pileView7.setMouseAdapter(new DuecesFoundationController (this, pileView7));
+		pileView7.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		pileView7.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		pileView8.setMouseAdapter(new DuecesFoundationController (this, pileView8));
+		pileView8.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		pileView8.setUndoAdapter (new SolitaireUndoAdapter(this));
 	}
 	
 	/** Return the name of this solitaire variation. */
@@ -245,7 +290,7 @@ public class Dueces extends Solitaire {
 		initializeModel(getSeed());
 		initializeView();
 		initializeController();
-
+		
 		// Prepare game AFTER all controllers are set up.
 		// each pile gets a card from the deck.
 		pile1.add (multiDeck.get());
@@ -256,6 +301,17 @@ public class Dueces extends Solitaire {
 		pile6.add (multiDeck.get());
 		pile7.add (multiDeck.get());
 		pile8.add (multiDeck.get());
+		
+		column1.add(multiDeck.get());
+		column2.add(multiDeck.get());
+		column3.add(multiDeck.get());
+		column4.add(multiDeck.get());
+		column5.add(multiDeck.get());
+		column6.add(multiDeck.get());
+		column7.add(multiDeck.get());
+		column8.add(multiDeck.get());
+		column9.add(multiDeck.get());
+		column10.add(multiDeck.get());
 
 		updateScore(8);
 		// we have dealt four cards.
@@ -264,7 +320,7 @@ public class Dueces extends Solitaire {
 
 	public static void main(String[] args) {
 		// Seed is to ensure we get the same initial cards every time.
-		GameWindow gw = Main.generateWindow(new Dueces(), Deck.OrderByRank);
+		GameWindow gw = Main.generateWindow(new Dueces(), new Random().nextInt());
 		gw.setVisible(true);
 
 	}
