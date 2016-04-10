@@ -62,11 +62,9 @@ public class DeucesTableauController extends java.awt.event.MouseAdapter {
 			c.releaseDraggingObject();
 			return;
 		}
-		System.err.println (fromWidget.getName());
 
 		// Determine the To Pile
 		Column tableau = (Column) src.getModelElement();
-		// TODO: Fix me :(
 
 		// Coming from the waste [number of cards being dragged must be one]
 		Column wastePile = (Column) fromWidget.getModelElement();

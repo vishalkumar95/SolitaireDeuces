@@ -81,13 +81,27 @@ public class DeucesFoundationController extends java.awt.event.MouseAdapter {
 		}
 
 		// must use peek() so we don't modify col prematurely
-		Move m = new WasteToFoundationMove (wastePile, theCard, foundation, wasteNum);
-		if (m.doMove (theGame)) {
-			// Success
-			theGame.pushMove (m);
-			theGame.refreshWidgets();
-		} else {
-			fromWidget.returnWidget (draggingWidget);
+		
+		if(fromWidget.getName().startsWith("RowView")){
+			Move m = new WasteToFoundationMove (wastePile, theCard, foundation, wasteNum);
+			if (m.doMove (theGame)) {
+				// Success
+				theGame.pushMove (m);
+				theGame.refreshWidgets();
+			} else {
+				fromWidget.returnWidget (draggingWidget);
+			}
+		}
+		
+		else if (fromWidget.getName().startsWith("ColumnView")){
+			Move m = new TableauToFoundationMove (wastePile, theCard, foundation);
+			if (m.doMove (theGame)) {
+				// Success
+				theGame.pushMove (m);
+				theGame.refreshWidgets();
+			} else {
+				fromWidget.returnWidget (draggingWidget);
+			}
 		}
 
 		// Ahhhh. Instead of dealing with multiple 'instanceof' difficulty, why don't we allow
