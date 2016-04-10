@@ -6,6 +6,7 @@ import java.util.Stack;
 
 import ks.client.gamefactory.GameWindow;
 import ks.common.controller.SolitaireMouseMotionAdapter;
+import ks.common.controller.SolitaireReleasedAdapter;
 import ks.common.games.Solitaire;
 import ks.common.games.SolitaireUndoAdapter;
 import ks.common.model.Card;
@@ -329,15 +330,15 @@ public class Deuces extends Solitaire {
 		numWasteView.setBounds(420 + 10* ci.getWidth(), 20, 100, 60);
 		container.addWidget(numWasteView);
 		
-		/*// Finally, cover the Container for any events not handled by a widget:
+		//Finally, cover the Container for any events not handled by a widget:
 		getContainer().setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
 		getContainer().setMouseAdapter (new SolitaireReleasedAdapter(this));
-		getContainer().setUndoAdapter (new SolitaireUndoAdapter(this));*/
+		getContainer().setUndoAdapter (new SolitaireUndoAdapter(this));
 	}
 	
 	/** Determine whether game has been won. */
 	public boolean hasWon() {
-		return false;
+		return (getScore().getValue() == 104);
 	}
 	
 	/** Initialize solitaire variation. */
