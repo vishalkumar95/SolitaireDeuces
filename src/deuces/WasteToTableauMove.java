@@ -80,7 +80,7 @@ public class WasteToTableauMove extends ks.common.model.Move {
 		}
 		
 		// moveWasteToFoundation(waste,pile) : not foundation.empty() and not waste.empty() and 
-		if ((c.getRank() == targetTableauColumn.rank() - 1) && (c.getSuit() == targetTableauColumn.suit()))
+		if ((!targetTableauColumn.empty()) && (c.getRank() == targetTableauColumn.rank() - 1) && (c.getSuit() == targetTableauColumn.suit()))
 			validation = true;
 		
 		else if (targetTableauColumn.empty()){

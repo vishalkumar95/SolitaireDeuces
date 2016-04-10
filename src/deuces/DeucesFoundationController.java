@@ -81,6 +81,7 @@ public class DeucesFoundationController extends java.awt.event.MouseAdapter {
 		if (m.doMove (theGame)) {
 			// Success
 			theGame.pushMove (m);
+			theGame.refreshWidgets();
 		} else {
 			fromWidget.returnWidget (draggingWidget);
 		}
