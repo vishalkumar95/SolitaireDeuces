@@ -1,14 +1,13 @@
 package deuces;
 
 import ks.client.gamefactory.GameWindow;
+import ks.common.controller.SolitaireMouseMotionAdapter;
 import ks.common.controller.SolitaireReleasedAdapter;
 import ks.common.games.Solitaire;
+import ks.common.games.SolitaireUndoAdapter;
 import ks.common.model.*;
 import ks.common.view.*;
 import ks.launcher.Main;
-import deuces.DeucesDeckController;
-import deuces.DeucesFinal;
-import heineman.idiot.IdiotColumnAdapter;
 
 /** This is an implementation of the Deuces version of the Solitaire game
  * 
@@ -16,7 +15,7 @@ import heineman.idiot.IdiotColumnAdapter;
  *
  */
 
-public class DeucesFinal extends Solitaire {
+public class Dueces extends Solitaire {
 	
 	// Each game has two decks
 	protected MultiDeck multiDeck;
@@ -45,26 +44,26 @@ public class DeucesFinal extends Solitaire {
 	// Add an integer view to display the number of cards left in the deck
 	protected IntegerView numLeftView;
 	
+	/** To select a new deck type uncomment this method */
+	@Override
+	public String getDeckType() {
+			return "tiny";
+	}
 	
 	/**
 	 * Prepare the controllers.
 	 */
 	private void initializeController() {
 		// Initialize Controllers for DeckView
-		deckView.setMouseAdapter(new DeucesDeckController (this));
-		
-		// to complete the behavior, you must register the default 'released adapter'
-		// with each widget that isn't expecting anything! Note that widgets
-		// that are expecting things must handle mouseReleased whenever there
-		// is any dragging going on. Check out DeucesDeckController
-		scoreView.setMouseAdapter (new SolitaireReleasedAdapter(this));
-		numLeftView.setMouseAdapter (new SolitaireReleasedAdapter(this));
-		
+		deckView.setMouseAdapter(new DuecesDeckController (this, multiDeck, wastePile));
+		deckView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		deckView.setUndoAdapter (new SolitaireUndoAdapter(this));
+
 	}
 	
 	/** Return the name of this solitaire variation. */
 	public String getName() {
-		return "Deuces Final";
+		return "Deuces";
 	}
 	
 	/**
@@ -79,9 +78,9 @@ public class DeucesFinal extends Solitaire {
 		// initial score is set to ZERO (every Solitaire game by default has a score) 
 		// and there are 52 cards left.
 		numLeft = getNumLeft();
-		numLeft.setValue(96);
+		numLeft.setValue(104);
 		score = getScore();
-		score.setValue(8);
+		score.setValue(0);
 		
 		// add to our model a deck 
 		multiDeck = new MultiDeck(2);
@@ -142,97 +141,102 @@ public class DeucesFinal extends Solitaire {
 
 		// add to our view (as defined within our superclass). Similar for other widgets
 		deckView = new DeckView(multiDeck);
-		deckView.setBounds(20, 120 + ci.getHeight(), ci.getWidth(), ci.getHeight());
-		addViewWidget(deckView);
+		deckView.setBounds(20, 120 + 4 * ci.getHeight(), ci.getWidth(), ci.getHeight());
+		container.addWidget(deckView);
 		
 		wastePileView = new RowView(wastePile);
-		wastePileView.setBounds(40 + ci.getWidth(), 120 + ci.getHeight(), ci.getWidth(), ci.getHeight());
-		addViewWidget(wastePileView);
+		wastePileView.setBounds(40 + ci.getWidth(), 120 + 4 * ci.getHeight(), 100 * ci.getWidth(), ci.getHeight());
+		container.addWidget(wastePileView);
 
 		pileView1 = new PileView(pile1);
 		pileView1.setBounds(40 + ci.getWidth(), 20, ci.getWidth(), ci.getHeight());
-		addViewWidget(pileView1);
+		container.addWidget(pileView1);
 
 		pileView2 = new PileView(pile2);
 		pileView2.setBounds(60 + 2 * ci.getWidth(), 20, ci.getWidth(), ci.getHeight());
-		addViewWidget(pileView2);
+		container.addWidget(pileView2);
 
 		pileView3 = new PileView(pile3);
 		pileView3.setBounds(80 + 3 * ci.getWidth(), 20, ci.getWidth(), ci.getHeight());
-		addViewWidget(pileView3);
+		container.addWidget(pileView3);
 
 		pileView4 = new PileView(pile4);
 		pileView4.setBounds(100 + 4 * ci.getWidth(), 20, ci.getWidth(), ci.getHeight());
-		addViewWidget(pileView4);
+		container.addWidget(pileView4);
 		
 		pileView5 = new PileView(pile5);
 		pileView5.setBounds(120 + 5 * ci.getWidth(), 20, ci.getWidth(), ci.getHeight());
-		addViewWidget(pileView5);
+		container.addWidget(pileView5);
 		
 		pileView6 = new PileView(pile6);
 		pileView6.setBounds(140 + 6 * ci.getWidth(), 20, ci.getWidth(), ci.getHeight());
-		addViewWidget(pileView6);
+		container.addWidget(pileView6);
 		
 		pileView7 = new PileView(pile7);
 		pileView7.setBounds(160 + 7 * ci.getWidth(), 20, ci.getWidth(), ci.getHeight());
-		addViewWidget(pileView7);
+		container.addWidget(pileView7);
 		
 		pileView8 = new PileView(pile8);
 		pileView8.setBounds(180 + 8 * ci.getWidth(), 20, ci.getWidth(), ci.getHeight());
-		addViewWidget(pileView8);
+		container.addWidget(pileView8);
 		
 		columnView1 = new ColumnView(column1);
-		columnView1.setBounds(20, 40 + ci.getHeight(), ci.getWidth(), ci.getHeight());
-		addViewWidget(columnView1);
+		columnView1.setBounds(20, 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		container.addWidget(columnView1);
 		
 		columnView2 = new ColumnView(column2);
-		columnView2.setBounds(40 + ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), ci.getHeight());
-		addViewWidget(columnView2);
+		columnView2.setBounds(40 + ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		container.addWidget(columnView2);
 		
 		columnView3 = new ColumnView(column3);
-		columnView3.setBounds(60 + 2 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), ci.getHeight());
-		addViewWidget(columnView3);
+		columnView3.setBounds(60 + 2 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		container.addWidget(columnView3);
 		
 		columnView4 = new ColumnView(column4);
-		columnView4.setBounds(80 + 3 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), ci.getHeight());
-		addViewWidget(columnView4);
+		columnView4.setBounds(80 + 3 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		container.addWidget(columnView4);
 		
 		columnView5 = new ColumnView(column5);
-		columnView5.setBounds(100 + 4 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), ci.getHeight());
-		addViewWidget(columnView5);
+		columnView5.setBounds(100 + 4 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		container.addWidget(columnView5);
 		
 		columnView6 = new ColumnView(column6);
-		columnView6.setBounds(120 + 5 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), ci.getHeight());
-		addViewWidget(columnView6);
+		columnView6.setBounds(120 + 5 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		container.addWidget(columnView6);
 		
 		columnView7 = new ColumnView(column7);
-		columnView7.setBounds(140 + 6 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), ci.getHeight());
-		addViewWidget(columnView7);
+		columnView7.setBounds(140 + 6 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		container.addWidget(columnView7);
 		
 		columnView8 = new ColumnView(column8);
-		columnView8.setBounds(160 + 7 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), ci.getHeight());
-		addViewWidget(columnView8);
+		columnView8.setBounds(160 + 7 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		container.addWidget(columnView8);
 		
 		columnView9 = new ColumnView(column9);
-		columnView9.setBounds(180 + 8 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), ci.getHeight());
-		addViewWidget(columnView9);
+		columnView9.setBounds(180 + 8 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		container.addWidget(columnView9);
 		
 		columnView10 = new ColumnView(column10);
-		columnView10.setBounds(200 + 9 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), ci.getHeight());
-		addViewWidget(columnView10);
+		columnView10.setBounds(200 + 9 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		container.addWidget(columnView10);
 
 		scoreView = new IntegerView(getScore());
 		scoreView.setBounds(220 + 10 * ci.getWidth(), 20, 100, 60);
-		addViewWidget(scoreView);
+		container.addWidget(scoreView);
 
 		numLeftView = new IntegerView(getNumLeft());
 		numLeftView.setBounds(320 + 10* ci.getWidth(), 20, 100, 60);
-		addViewWidget(numLeftView);
+		container.addWidget(numLeftView);
+		
+		/*// Finally, cover the Container for any events not handled by a widget:
+		getContainer().setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
+		getContainer().setMouseAdapter (new SolitaireReleasedAdapter(this));
+		getContainer().setUndoAdapter (new SolitaireUndoAdapter(this));*/
 	}
 	
 	/** Determine whether game has been won. */
 	public boolean hasWon() {
-		return true;
+		return false;
 	}
 	
 	/** Initialize solitaire variation. */
@@ -253,13 +257,14 @@ public class DeucesFinal extends Solitaire {
 		pile7.add (multiDeck.get());
 		pile8.add (multiDeck.get());
 
+		updateScore(8);
 		// we have dealt four cards.
-		updateNumberCardsLeft (-8);	
+		updateNumberCardsLeft (-18);	
 	}
 
 	public static void main(String[] args) {
 		// Seed is to ensure we get the same initial cards every time.
-		GameWindow gw = Main.generateWindow(new DeucesFinal(), Deck.OrderByRank);
+		GameWindow gw = Main.generateWindow(new Dueces(), Deck.OrderByRank);
 		gw.setVisible(true);
 
 	}
