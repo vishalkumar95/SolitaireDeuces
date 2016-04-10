@@ -381,7 +381,7 @@ public class Deuces extends Solitaire {
 		}
 		
 		// Reconstitute the deck
-		for (int j = 0; j < stack.size(); j++){
+		for (int j = 0; j < 96; j++){
 			multiDeck.add((Card)stack.pop());
 		}
 		

@@ -62,6 +62,7 @@ public class DeucesTableauController extends java.awt.event.MouseAdapter {
 			c.releaseDraggingObject();
 			return;
 		}
+		System.err.println (fromWidget.getName());
 
 		// Determine the To Pile
 		Column tableau = (Column) src.getModelElement();
@@ -79,7 +80,7 @@ public class DeucesTableauController extends java.awt.event.MouseAdapter {
 			return;
 		}
 
-		if(fromWidget.getName().equals("wastePile")){
+		if(fromWidget.getName().startsWith("RowView")){
 		// must use peek() so we don't modify col prematurely
 			Move m = new WasteToTableauMove (wastePile, theCard, tableau, wasteNum);
 			if (m.doMove (theGame)) {
@@ -91,7 +92,7 @@ public class DeucesTableauController extends java.awt.event.MouseAdapter {
 			}
 		}
 		
-		else if(fromWidget.getName().startsWith("column")){
+		else if(fromWidget.getName().startsWith("ColumnView")){
 		// must use peek() so we don't modify col prematurely
 			Move m = new TableauToTableauMove (wastePile, theCard, tableau, wasteNum);
 			if (m.doMove (theGame)) {
