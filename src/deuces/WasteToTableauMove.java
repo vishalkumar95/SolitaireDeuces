@@ -1,6 +1,7 @@
 package deuces;
 
 import ks.common.model.Column;
+import ks.common.model.MutableInteger;
 import ks.common.games.Solitaire;
 import ks.common.model.Card;
 
@@ -13,17 +14,20 @@ public class WasteToTableauMove extends ks.common.model.Move {
 	protected Column wastePile;
 	
 	protected Card cardBeingDragged;
+	
+	protected MutableInteger wasteNum;
 /**
  * DealCardMove constructor.
  * @param Deck deck
  * @param Pile wastePile
  */
-	public WasteToTableauMove (Column wastePile, Card cardBeingDragged, Column targetTableauColumn) {
+	public WasteToTableauMove (Column wastePile, Card cardBeingDragged, Column targetTableauColumn, MutableInteger wasteNum) {
 		super();
 	
 		this.targetTableauColumn = targetTableauColumn;
 		this.cardBeingDragged = cardBeingDragged;
 		this.wastePile = wastePile;
+		this.wasteNum = wasteNum;
 	}
 	
 	/**
@@ -42,6 +46,8 @@ public class WasteToTableauMove extends ks.common.model.Move {
 			targetTableauColumn.add (wastePile.get());
 		else
 			targetTableauColumn.add (cardBeingDragged);
+		
+		wasteNum.increment(-1);
 
 		return true;
 	}
@@ -58,6 +64,8 @@ public class WasteToTableauMove extends ks.common.model.Move {
 		// EXECUTE:
 		// remove card and move to waste.
 		wastePile.add (targetTableauColumn.get());
+		
+		wasteNum.increment(1);
 
 		return true;
 	}

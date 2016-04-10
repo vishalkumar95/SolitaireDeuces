@@ -11,6 +11,7 @@ import ks.common.games.SolitaireUndoAdapter;
 import ks.common.model.Card;
 import ks.common.model.Column;
 import ks.common.model.MultiDeck;
+import ks.common.model.MutableInteger;
 import ks.common.model.Pile;
 import ks.common.view.*;
 import ks.launcher.Main;
@@ -50,6 +51,11 @@ public class Deuces extends Solitaire {
 	// Add an integer view to display the number of cards left in the deck
 	protected IntegerView numLeftView;
 	
+	// Add an integer view to display the number of cards left in the deck
+	protected IntegerView numWasteView;
+
+	private MutableInteger wasteNum;
+	
 	/** To select a new deck type uncomment this method */
 	@Override
 	public String getDeckType() {
@@ -66,7 +72,7 @@ public class Deuces extends Solitaire {
 	 */
 	private void initializeController() {
 		// Initialize Controllers for DeckView
-		deckView.setMouseAdapter(new DeucesDeckController (this, multiDeck, wastePile));
+		deckView.setMouseAdapter(new DeucesDeckController (this, multiDeck, wastePile, wasteNum));
 		deckView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		deckView.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
@@ -76,75 +82,75 @@ public class Deuces extends Solitaire {
 		wastePileView.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
 		// Initialize Controllers for Foundation
-		pileView1.setMouseAdapter(new DeucesFoundationController (this, pileView1));
+		pileView1.setMouseAdapter(new DeucesFoundationController (this, pileView1, wasteNum));
 		pileView1.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView1.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView2.setMouseAdapter(new DeucesFoundationController (this, pileView2));
+		pileView2.setMouseAdapter(new DeucesFoundationController (this, pileView2, wasteNum));
 		pileView2.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView2.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView3.setMouseAdapter(new DeucesFoundationController (this, pileView3));
+		pileView3.setMouseAdapter(new DeucesFoundationController (this, pileView3, wasteNum));
 		pileView3.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView3.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView4.setMouseAdapter(new DeucesFoundationController (this, pileView4));
+		pileView4.setMouseAdapter(new DeucesFoundationController (this, pileView4, wasteNum));
 		pileView4.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView4.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView5.setMouseAdapter(new DeucesFoundationController (this, pileView5));
+		pileView5.setMouseAdapter(new DeucesFoundationController (this, pileView5, wasteNum));
 		pileView5.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView5.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView6.setMouseAdapter(new DeucesFoundationController (this, pileView6));
+		pileView6.setMouseAdapter(new DeucesFoundationController (this, pileView6, wasteNum));
 		pileView6.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView6.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView7.setMouseAdapter(new DeucesFoundationController (this, pileView7));
+		pileView7.setMouseAdapter(new DeucesFoundationController (this, pileView7, wasteNum));
 		pileView7.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView7.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView8.setMouseAdapter(new DeucesFoundationController (this, pileView8));
+		pileView8.setMouseAdapter(new DeucesFoundationController (this, pileView8, wasteNum));
 		pileView8.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView8.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		columnView1.setMouseAdapter(new DeucesTableauController (this, columnView1));
+		columnView1.setMouseAdapter(new DeucesTableauController (this, columnView1, wasteNum));
 		columnView1.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		columnView1.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		columnView2.setMouseAdapter(new DeucesTableauController (this, columnView2));
+		columnView2.setMouseAdapter(new DeucesTableauController (this, columnView2, wasteNum));
 		columnView2.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		columnView2.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		columnView3.setMouseAdapter(new DeucesTableauController (this, columnView3));
+		columnView3.setMouseAdapter(new DeucesTableauController (this, columnView3, wasteNum));
 		columnView3.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		columnView3.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		columnView4.setMouseAdapter(new DeucesTableauController (this, columnView4));
+		columnView4.setMouseAdapter(new DeucesTableauController (this, columnView4, wasteNum));
 		columnView4.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		columnView4.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		columnView5.setMouseAdapter(new DeucesTableauController (this, columnView5));
+		columnView5.setMouseAdapter(new DeucesTableauController (this, columnView5, wasteNum));
 		columnView5.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		columnView5.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		columnView6.setMouseAdapter(new DeucesTableauController (this, columnView6));
+		columnView6.setMouseAdapter(new DeucesTableauController (this, columnView6, wasteNum));
 		columnView6.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		columnView6.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		columnView7.setMouseAdapter(new DeucesTableauController (this, columnView7));
+		columnView7.setMouseAdapter(new DeucesTableauController (this, columnView7, wasteNum));
 		columnView7.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		columnView7.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		columnView8.setMouseAdapter(new DeucesTableauController (this, columnView8));
+		columnView8.setMouseAdapter(new DeucesTableauController (this, columnView8, wasteNum));
 		columnView8.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		columnView8.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		columnView9.setMouseAdapter(new DeucesTableauController (this, columnView9));
+		columnView9.setMouseAdapter(new DeucesTableauController (this, columnView9, wasteNum));
 		columnView9.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		columnView9.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		columnView10.setMouseAdapter(new DeucesTableauController (this, columnView10));
+		columnView10.setMouseAdapter(new DeucesTableauController (this, columnView10, wasteNum));
 		columnView10.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		columnView10.setUndoAdapter (new SolitaireUndoAdapter(this));
 	}
@@ -169,6 +175,9 @@ public class Deuces extends Solitaire {
 		numLeft.setValue(104);
 		score = getScore();
 		score.setValue(0);
+		
+		// Create an integer to count for the number of cards in the waste pile
+		 wasteNum = new MutableInteger(0);
 		
 		// add to our model a deck 
 		multiDeck = new MultiDeck(2);
@@ -315,6 +324,10 @@ public class Deuces extends Solitaire {
 		numLeftView = new IntegerView(getNumLeft());
 		numLeftView.setBounds(320 + 10* ci.getWidth(), 20, 100, 60);
 		container.addWidget(numLeftView);
+		
+		numWasteView = new IntegerView(wasteNum);
+		numWasteView.setBounds(420 + 10* ci.getWidth(), 20, 100, 60);
+		container.addWidget(numWasteView);
 		
 		/*// Finally, cover the Container for any events not handled by a widget:
 		getContainer().setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));

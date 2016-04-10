@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import ks.common.model.Card;
 import ks.common.model.Column;
 import ks.common.model.Move;
+import ks.common.model.MutableInteger;
 import ks.common.model.Pile;
 import ks.common.view.CardView;
 import ks.common.view.Container;
@@ -25,12 +26,15 @@ public class DeucesFoundationController extends java.awt.event.MouseAdapter {
 
 	/** The specific Foundation pileView being controlled. */
 	protected PileView src;
+	
+	protected MutableInteger wasteNum;
 	/**
 	 * FoundationController constructor comment.
 	 */
-	public DeucesFoundationController(Deuces theGame, PileView foundation) {
+	public DeucesFoundationController(Deuces theGame, PileView foundation, MutableInteger wasteNum) {
 		super();
 
+		this.wasteNum = wasteNum;
 		this.theGame = theGame;
 		this.src = foundation;
 	}
@@ -77,7 +81,7 @@ public class DeucesFoundationController extends java.awt.event.MouseAdapter {
 		}
 
 		// must use peek() so we don't modify col prematurely
-		Move m = new WasteToFoundationMove (wastePile, theCard, foundation);
+		Move m = new WasteToFoundationMove (wastePile, theCard, foundation, wasteNum);
 		if (m.doMove (theGame)) {
 			// Success
 			theGame.pushMove (m);

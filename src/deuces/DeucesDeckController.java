@@ -3,6 +3,7 @@ package deuces;
 import deuces.Deuces;
 import ks.common.controller.SolitaireReleasedAdapter;
 import ks.common.model.MultiDeck;
+import ks.common.model.MutableInteger;
 import ks.common.model.Move;
 import ks.common.model.Column;
 
@@ -15,13 +16,16 @@ public class DeucesDeckController extends SolitaireReleasedAdapter {
 
 	/** The Deck of interest. */
 	protected MultiDeck multiDeck;
+	
+	protected MutableInteger wasteNum;
 
 	/**
 	 * KlondikeDeckController constructor comment.
 	 */
-	public DeucesDeckController(Deuces theGame, MultiDeck d, Column wastePile) {
+	public DeucesDeckController(Deuces theGame, MultiDeck d, Column wastePile, MutableInteger wasteNum ) {
 		super(theGame);
 
+		this.wasteNum = wasteNum;
 		this.theGame = theGame;
 		this.wastePile = wastePile;
 		this.multiDeck = d;
@@ -34,7 +38,7 @@ public class DeucesDeckController extends SolitaireReleasedAdapter {
 	public void mousePressed (java.awt.event.MouseEvent me) {
 
 		// Attempting a DealFourCardMove
-		Move m = new DealOneMove (multiDeck, wastePile);
+		Move m = new DealOneMove (multiDeck, wastePile, wasteNum);
 		if (m.doMove(theGame)) {
 			theGame.pushMove (m);     // Successful DealFour Move
 			theGame.refreshWidgets(); // refresh updated widgets.

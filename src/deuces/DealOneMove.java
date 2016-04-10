@@ -1,6 +1,7 @@
 package deuces;
 
 import ks.common.model.MultiDeck;
+import ks.common.model.MutableInteger;
 import ks.common.model.Column;
 
 public class DealOneMove extends ks.common.model.Move {
@@ -10,16 +11,19 @@ public class DealOneMove extends ks.common.model.Move {
 
 	/** The wastePile. */
 	protected Column wastePile;
+	
+	protected MutableInteger wasteNum;
 /**
  * DealCardMove constructor.
  * @param Deck deck
  * @param Pile wastePile
  */
-	public DealOneMove (MultiDeck multiDeck,  Column wastePile) {
+	public DealOneMove (MultiDeck multiDeck,  Column wastePile, MutableInteger wasteNum) {
 		super();
 	
 		this.multiDeck = multiDeck;
 		this.wastePile = wastePile;
+		this.wasteNum = wasteNum;
 	}
 	
 	/**
@@ -37,6 +41,8 @@ public class DealOneMove extends ks.common.model.Move {
 		wastePile.add (multiDeck.get());
 		
 		game.updateNumberCardsLeft (-1);
+		wasteNum.increment(1);
+		
 		return true;	
 	}
 	/**
@@ -54,6 +60,7 @@ public class DealOneMove extends ks.common.model.Move {
 
 		// update the number of cards to go.
 		game.updateNumberCardsLeft (+1);
+		wasteNum.increment(-1);
 		return true;
 	}
 	/**

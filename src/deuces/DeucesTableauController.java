@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import ks.common.model.Card;
 import ks.common.model.Column;
 import ks.common.model.Move;
+import ks.common.model.MutableInteger;
 import ks.common.view.CardView;
 import ks.common.view.Container;
 import ks.common.view.ColumnView;
@@ -23,12 +24,15 @@ public class DeucesTableauController extends java.awt.event.MouseAdapter {
 
 	/** The specific Foundation pileView being controlled. */
 	protected ColumnView src;
+	
+	protected MutableInteger wasteNum;
 	/**
 	 * FoundationController constructor comment.
 	 */
-	public DeucesTableauController(Deuces theGame, ColumnView tableau) {
+	public DeucesTableauController(Deuces theGame, ColumnView tableau, MutableInteger wasteNum) {
 		super();
 
+		this.wasteNum = wasteNum;
 		this.theGame = theGame;
 		this.src = tableau;
 	}
@@ -61,6 +65,7 @@ public class DeucesTableauController extends java.awt.event.MouseAdapter {
 
 		// Determine the To Pile
 		Column tableau = (Column) src.getModelElement();
+		// TODO: Fix me :(
 
 		// Coming from the waste [number of cards being dragged must be one]
 		Column wastePile = (Column) fromWidget.getModelElement();
@@ -74,15 +79,31 @@ public class DeucesTableauController extends java.awt.event.MouseAdapter {
 			return;
 		}
 
+		if(fromWidget.getName().equals("wastePile")){
 		// must use peek() so we don't modify col prematurely
-		Move m = new WasteToTableauMove (wastePile, theCard, tableau);
-		if (m.doMove (theGame)) {
-			// Success
-			theGame.pushMove (m);
-			theGame.refreshWidgets();
-		} else {
-			fromWidget.returnWidget (draggingWidget);
+			Move m = new WasteToTableauMove (wastePile, theCard, tableau, wasteNum);
+			if (m.doMove (theGame)) {
+				// Success
+				theGame.pushMove (m);
+				theGame.refreshWidgets();
+			} else {
+				fromWidget.returnWidget (draggingWidget);
+			}
 		}
+		
+		else if(fromWidget.getName().startsWith("column")){
+		// must use peek() so we don't modify col prematurely
+			Move m = new TableauToTableauMove (wastePile, theCard, tableau, wasteNum);
+			if (m.doMove (theGame)) {
+				// Success
+				theGame.pushMove (m);
+				theGame.refreshWidgets();
+			} else {
+				fromWidget.returnWidget (draggingWidget);
+			}
+		}
+		
+		//TODO : Work on separating the move classes
 
 		// Ahhhh. Instead of dealing with multiple 'instanceof' difficulty, why don't we allow
 		// for multiple controllers to be set on the same widget? Each will be invoked, one

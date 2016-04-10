@@ -1,18 +1,17 @@
 package deuces;
 
-import ks.common.model.Pile;
 import ks.common.model.Column;
 import ks.common.model.MutableInteger;
 import ks.common.games.Solitaire;
 import ks.common.model.Card;
 
-public class WasteToFoundationMove extends ks.common.model.Move {
+public class TableauToTableauMove extends ks.common.model.Move {
 	
 	/** The deck. */
-	protected Pile targetFoundationPile;
+	protected Column targetTableauColumn;
 
 	/** The wastePile. */
-	protected Column wastePile;
+	protected Column sourceTableauColumn;
 	
 	protected Card cardBeingDragged;
 	
@@ -22,12 +21,12 @@ public class WasteToFoundationMove extends ks.common.model.Move {
  * @param Deck deck
  * @param Pile wastePile
  */
-	public WasteToFoundationMove (Column wastePile, Card cardBeingDragged, Pile targetFoundationPile, MutableInteger wasteNum) {
+	public TableauToTableauMove (Column sourceTableauColumn, Card cardBeingDragged, Column targetTableauColumn, MutableInteger wasteNum) {
 		super();
 	
-		this.targetFoundationPile = targetFoundationPile;
+		this.targetTableauColumn = targetTableauColumn;
 		this.cardBeingDragged = cardBeingDragged;
-		this.wastePile = wastePile;
+		this.sourceTableauColumn = sourceTableauColumn;
 		this.wasteNum = wasteNum;
 	}
 	
@@ -44,13 +43,10 @@ public class WasteToFoundationMove extends ks.common.model.Move {
 		// EXECUTE:
 		// Deal with both situations
 		if (cardBeingDragged == null)
-			targetFoundationPile.add (wastePile.get());
+			targetTableauColumn.add (sourceTableauColumn.get());
 		else
-			targetFoundationPile.add (cardBeingDragged);
+			targetTableauColumn.add (cardBeingDragged);
 
-		// advance score
-		theGame.updateScore (1);
-		wasteNum.increment(-1);
 		return true;
 	}
 	/**
@@ -61,15 +57,12 @@ public class WasteToFoundationMove extends ks.common.model.Move {
 	public boolean undo(ks.common.games.Solitaire game) {
 
 		// VALIDATE:
-		if (targetFoundationPile.empty()) return false;
+		if (targetTableauColumn.empty()) return false;
 
 		// EXECUTE:
 		// remove card and move to waste.
-		wastePile.add (targetFoundationPile.get());
+		sourceTableauColumn.add (targetTableauColumn.get());
 
-		// reverse score advance
-		game.updateScore (-1);
-		wasteNum.increment(1);
 		return true;
 	}
 	/**
@@ -84,15 +77,19 @@ public class WasteToFoundationMove extends ks.common.model.Move {
 		// If draggingCard is null, then no action has yet taken place.
 		Card c;
 		if (cardBeingDragged == null) {
-			if (wastePile.empty()) return false;   // NOTHING TO EXTRACT!
-			c = wastePile.peek();
+			if (sourceTableauColumn.empty()) return false;   // NOTHING TO EXTRACT!
+			c = sourceTableauColumn.peek();
 		} else {
 			c = cardBeingDragged;
 		}
 		
 		// moveWasteToFoundation(waste,pile) : not foundation.empty() and not waste.empty() and 
-		if (!targetFoundationPile.empty() && (c.getRank() == targetFoundationPile.rank() + 1) && (c.getSuit() == targetFoundationPile.suit()))
+		if ((!targetTableauColumn.empty()) && (c.getRank() == targetTableauColumn.rank() - 1) && (c.getSuit() == targetTableauColumn.suit()))
 			validation = true;
+		
+		else if (targetTableauColumn.empty()){
+			validation = true;
+		}
 
 		return validation;
 	}
