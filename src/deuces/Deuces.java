@@ -2,13 +2,16 @@ package deuces;
 
 import java.awt.Dimension;
 import java.util.Random;
+import java.util.Stack;
 
 import ks.client.gamefactory.GameWindow;
 import ks.common.controller.SolitaireMouseMotionAdapter;
-import ks.common.controller.SolitaireReleasedAdapter;
 import ks.common.games.Solitaire;
 import ks.common.games.SolitaireUndoAdapter;
-import ks.common.model.*;
+import ks.common.model.Card;
+import ks.common.model.Column;
+import ks.common.model.MultiDeck;
+import ks.common.model.Pile;
 import ks.common.view.*;
 import ks.launcher.Main;
 
@@ -333,14 +336,41 @@ public class Deuces extends Solitaire {
 		
 		// Prepare game AFTER all controllers are set up.
 		// each pile gets a card from the deck.
-		pile1.add (multiDeck.get());
-		pile2.add (multiDeck.get());
-		pile3.add (multiDeck.get());
-		pile4.add (multiDeck.get());
-		pile5.add (multiDeck.get());
-		pile6.add (multiDeck.get());
-		pile7.add (multiDeck.get());
-		pile8.add (multiDeck.get());
+		Stack<Card> stack = new Stack<Card>();
+		
+		// Get the 2 cards separately
+		for (int i = 0; i < 104; i++){
+			Card c = multiDeck.peek();
+			if (c.getRank() == Card.TWO){
+				if (pile1.empty()){
+					pile1.add (multiDeck.get());
+				} else if (pile2.empty()){
+					pile2.add (multiDeck.get());
+				} else if (pile3.empty()){
+					pile3.add (multiDeck.get());
+				} else if (pile4.empty()){
+					pile4.add (multiDeck.get());
+				} else if (pile5.empty()){
+					pile5.add (multiDeck.get());
+				} else if (pile6.empty()){
+					pile6.add (multiDeck.get());
+				} else if (pile7.empty()){
+					pile7.add (multiDeck.get());
+				} else if (pile8.empty()){
+					pile8.add (multiDeck.get());
+				}
+			}
+			else{
+				// Push the remaining cards onto a stack
+				Card tempCard = multiDeck.get();
+				stack.push(tempCard);
+			}
+		}
+		
+		// Reconstitute the deck
+		for (int j = 0; j < stack.size(); j++){
+			multiDeck.add((Card)stack.pop());
+		}
 		
 		column1.add(multiDeck.get());
 		column2.add(multiDeck.get());
