@@ -9,10 +9,10 @@ import ks.common.view.Container;
 import ks.common.view.RowView;
 import ks.common.view.Widget;
 
-public class DuecesWastePileController extends SolitaireReleasedAdapter {
+public class DeucesWastePileController extends SolitaireReleasedAdapter {
 	
 	/** The Dueces Game. */
-	protected Dueces theGame;
+	protected Deuces theGame;
 
 	/** The specific WastePileView being controlled. */
 	protected RowView src;
@@ -20,7 +20,7 @@ public class DuecesWastePileController extends SolitaireReleasedAdapter {
 	/**
 	 * WastePileController constructor comment.
 	 */
-	public DuecesWastePileController(Dueces theGame, RowView waste) {
+	public DeucesWastePileController(Deuces theGame, RowView waste) {
 		super(theGame);
 	
 		this.theGame = theGame;

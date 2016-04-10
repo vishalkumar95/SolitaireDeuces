@@ -19,16 +19,16 @@ import heineman.Klondike;
  * Creation date: (11/10/01 11:51:49 PM)
  * @author: George T. Heineman (heineman@cs.wpi.edu)
  */
-public class DuecesFoundationController extends java.awt.event.MouseAdapter {
+public class DeucesFoundationController extends java.awt.event.MouseAdapter {
 	/** The Klondike Game. */
-	protected Dueces theGame;
+	protected Deuces theGame;
 
 	/** The specific Foundation pileView being controlled. */
 	protected PileView src;
 	/**
 	 * FoundationController constructor comment.
 	 */
-	public DuecesFoundationController(Dueces theGame, PileView foundation) {
+	public DeucesFoundationController(Deuces theGame, PileView foundation) {
 		super();
 
 		this.theGame = theGame;

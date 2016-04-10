@@ -18,7 +18,7 @@ import ks.launcher.Main;
  *
  */
 
-public class Dueces extends Solitaire {
+public class Deuces extends Solitaire {
 	
 	// Each game has two decks
 	protected MultiDeck multiDeck;
@@ -63,45 +63,45 @@ public class Dueces extends Solitaire {
 	 */
 	private void initializeController() {
 		// Initialize Controllers for DeckView
-		deckView.setMouseAdapter(new DuecesDeckController (this, multiDeck, wastePile));
+		deckView.setMouseAdapter(new DeucesDeckController (this, multiDeck, wastePile));
 		deckView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		deckView.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
 		// Initialize Controllers for WastePile
-		wastePileView.setMouseAdapter(new DuecesWastePileController (this, wastePileView));
+		wastePileView.setMouseAdapter(new DeucesWastePileController (this, wastePileView));
 		wastePileView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		wastePileView.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
 		// Initialize Controllers for Foundation
-		pileView1.setMouseAdapter(new DuecesFoundationController (this, pileView1));
+		pileView1.setMouseAdapter(new DeucesFoundationController (this, pileView1));
 		pileView1.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView1.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView2.setMouseAdapter(new DuecesFoundationController (this, pileView2));
+		pileView2.setMouseAdapter(new DeucesFoundationController (this, pileView2));
 		pileView2.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView2.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView3.setMouseAdapter(new DuecesFoundationController (this, pileView3));
+		pileView3.setMouseAdapter(new DeucesFoundationController (this, pileView3));
 		pileView3.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView3.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView4.setMouseAdapter(new DuecesFoundationController (this, pileView4));
+		pileView4.setMouseAdapter(new DeucesFoundationController (this, pileView4));
 		pileView4.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView4.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView5.setMouseAdapter(new DuecesFoundationController (this, pileView5));
+		pileView5.setMouseAdapter(new DeucesFoundationController (this, pileView5));
 		pileView5.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView5.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView6.setMouseAdapter(new DuecesFoundationController (this, pileView6));
+		pileView6.setMouseAdapter(new DeucesFoundationController (this, pileView6));
 		pileView6.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView6.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView7.setMouseAdapter(new DuecesFoundationController (this, pileView7));
+		pileView7.setMouseAdapter(new DeucesFoundationController (this, pileView7));
 		pileView7.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView7.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
-		pileView8.setMouseAdapter(new DuecesFoundationController (this, pileView8));
+		pileView8.setMouseAdapter(new DeucesFoundationController (this, pileView8));
 		pileView8.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView8.setUndoAdapter (new SolitaireUndoAdapter(this));
 	}
@@ -320,7 +320,7 @@ public class Dueces extends Solitaire {
 
 	public static void main(String[] args) {
 		// Seed is to ensure we get the same initial cards every time.
-		GameWindow gw = Main.generateWindow(new Dueces(), new Random().nextInt());
+		GameWindow gw = Main.generateWindow(new Deuces(), new Random().nextInt());
 		gw.setVisible(true);
 
 	}

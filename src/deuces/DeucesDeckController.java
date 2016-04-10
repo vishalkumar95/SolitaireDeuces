@@ -1,14 +1,14 @@
 package deuces;
 
-import deuces.Dueces;
+import deuces.Deuces;
 import ks.common.controller.SolitaireReleasedAdapter;
 import ks.common.model.MultiDeck;
 import ks.common.model.Move;
 import ks.common.model.Column;
 
-public class DuecesDeckController extends SolitaireReleasedAdapter {
+public class DeucesDeckController extends SolitaireReleasedAdapter {
 	/** The game. */
-	protected Dueces theGame;
+	protected Deuces theGame;
 
 	/** The WastePile of interest. */
 	protected Column wastePile;
@@ -19,7 +19,7 @@ public class DuecesDeckController extends SolitaireReleasedAdapter {
 	/**
 	 * KlondikeDeckController constructor comment.
 	 */
-	public DuecesDeckController(Dueces theGame, MultiDeck d, Column wastePile) {
+	public DeucesDeckController(Deuces theGame, MultiDeck d, Column wastePile) {
 		super(theGame);
 
 		this.theGame = theGame;
