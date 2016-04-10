@@ -104,6 +104,46 @@ public class Deuces extends Solitaire {
 		pileView8.setMouseAdapter(new DeucesFoundationController (this, pileView8));
 		pileView8.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		pileView8.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		columnView1.setMouseAdapter(new DeucesTableauController (this, columnView1));
+		columnView1.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		columnView1.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		columnView2.setMouseAdapter(new DeucesTableauController (this, columnView2));
+		columnView2.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		columnView2.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		columnView3.setMouseAdapter(new DeucesTableauController (this, columnView3));
+		columnView3.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		columnView3.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		columnView4.setMouseAdapter(new DeucesTableauController (this, columnView4));
+		columnView4.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		columnView4.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		columnView5.setMouseAdapter(new DeucesTableauController (this, columnView5));
+		columnView5.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		columnView5.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		columnView6.setMouseAdapter(new DeucesTableauController (this, columnView6));
+		columnView6.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		columnView6.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		columnView7.setMouseAdapter(new DeucesTableauController (this, columnView7));
+		columnView7.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		columnView7.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		columnView8.setMouseAdapter(new DeucesTableauController (this, columnView8));
+		columnView8.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		columnView8.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		columnView9.setMouseAdapter(new DeucesTableauController (this, columnView9));
+		columnView9.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		columnView9.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		columnView10.setMouseAdapter(new DeucesTableauController (this, columnView10));
+		columnView10.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		columnView10.setUndoAdapter (new SolitaireUndoAdapter(this));
 	}
 	
 	/** Return the name of this solitaire variation. */
