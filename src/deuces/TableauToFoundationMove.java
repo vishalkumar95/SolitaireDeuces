@@ -111,7 +111,9 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 		// moveWasteToFoundation(waste,pile) : not foundation.empty() and not waste.empty() and
 		if (stack.size() == 1){
 			if (!targetFoundationPile.empty() && (stack.peek().getRank() == targetFoundationPile.rank() + 1) && (stack.peek().getSuit() == targetFoundationPile.suit())){
-				System.err.println(stack.peek().getRank());
+				validation = true;
+			}
+			else if (!targetFoundationPile.empty() && (targetFoundationPile.rank() == 13 ) && (stack.peek().getRank() == 1) && (stack.peek().getSuit() == targetFoundationPile.suit())){
 				validation = true;
 			}
 		}

@@ -93,6 +93,10 @@ public class WasteToFoundationMove extends ks.common.model.Move {
 		// moveWasteToFoundation(waste,pile) : not foundation.empty() and not waste.empty() and 
 		if (!targetFoundationPile.empty() && (c.getRank() == targetFoundationPile.rank() + 1) && (c.getSuit() == targetFoundationPile.suit()))
 			validation = true;
+		
+		else if (!targetFoundationPile.empty() && (targetFoundationPile.rank() == 13 ) && (c.getRank() == 1) && (c.getSuit() == targetFoundationPile.suit())){
+			validation = true;
+		}
 
 		return validation;
 	}
