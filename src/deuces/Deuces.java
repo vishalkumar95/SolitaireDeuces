@@ -342,7 +342,11 @@ public class Deuces extends Solitaire {
 	
 	/** Determine whether game has been won. */
 	public boolean hasWon() {
-		return (getScore().getValue() == 104);
+		if ((pile1.rank() == 1) && (pile2.rank() == 1) && (pile3.rank() == 1) && (pile4.rank() == 1) && (pile5.rank() == 1) && (pile6.rank() == 1) && (pile7.rank() == 1) && (pile8.rank() == 1) && (getScore().getValue() == 104)){
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	/** Initialize solitaire variation. */
@@ -414,3 +418,7 @@ public class Deuces extends Solitaire {
 	}
 
 }
+
+
+// TODO : Add the functionality to add column of cards in the foundation
+// TODO : Check if we can add ace in the column in the tableau
