@@ -8,6 +8,7 @@ import ks.common.model.Move;
 import ks.common.model.MutableInteger;
 import ks.common.model.Pile;
 import ks.common.view.CardView;
+import ks.common.view.ColumnView;
 import ks.common.view.Container;
 import ks.common.view.PileView;
 import ks.common.view.Widget;
@@ -71,18 +72,19 @@ public class DeucesFoundationController extends java.awt.event.MouseAdapter {
 		// Coming from the waste [number of cards being dragged must be one]
 		Column wastePile = (Column) fromWidget.getModelElement();
 
-		/** Must be the CardView widget being dragged. */
-		CardView cardView = (CardView) draggingWidget;
-		Card theCard = (Card) cardView.getModelElement();
-		if (theCard == null) {
-			System.err.println ("FoundationController::mouseReleased(): somehow CardView model element is null.");
-			c.releaseDraggingObject();
-			return;
-		}
-
 		// must use peek() so we don't modify col prematurely
 		
 		if(fromWidget.getName().startsWith("RowView")){
+			
+			/** Must be the CardView widget being dragged. */
+			CardView cardView = (CardView) draggingWidget;
+			Card theCard = (Card) cardView.getModelElement();
+			if (theCard == null) {
+				System.err.println ("FoundationController::mouseReleased(): somehow CardView model element is null.");
+				c.releaseDraggingObject();
+				return;
+			}
+
 			Move m = new WasteToFoundationMove (wastePile, theCard, foundation, wasteNum);
 			if (m.doMove (theGame)) {
 				// Success
@@ -94,7 +96,18 @@ public class DeucesFoundationController extends java.awt.event.MouseAdapter {
 		}
 		
 		else if (fromWidget.getName().startsWith("ColumnView")){
-			Move m = new TableauToFoundationMove (wastePile, theCard, foundation);
+			
+			/** Must be the CardView widget being dragged. */
+			ColumnView columnView = (ColumnView) draggingWidget;
+			Column theColumn = (Column) columnView.getModelElement();
+			if (theColumn == null) {
+				System.err.println ("FoundationController::mouseReleased(): somehow CardView model element is null.");
+				c.releaseDraggingObject();
+				return;
+			}
+
+			
+			Move m = new TableauToFoundationMove (wastePile, theColumn, foundation);
 			if (m.doMove (theGame)) {
 				// Success
 				theGame.pushMove (m);

@@ -2,6 +2,9 @@ package deuces;
 
 import ks.common.model.Column;
 import ks.common.model.MutableInteger;
+
+import java.util.Stack;
+
 import ks.common.games.Solitaire;
 import ks.common.model.Card;
 
@@ -13,7 +16,7 @@ public class TableauToTableauMove extends ks.common.model.Move {
 	/** The wastePile. */
 	protected Column sourceTableauColumn;
 	
-	protected Card cardBeingDragged;
+	protected Column columnBeingDragged;
 	
 	protected MutableInteger wasteNum;
 /**
@@ -21,11 +24,11 @@ public class TableauToTableauMove extends ks.common.model.Move {
  * @param Deck deck
  * @param Pile wastePile
  */
-	public TableauToTableauMove (Column sourceTableauColumn, Card cardBeingDragged, Column targetTableauColumn, MutableInteger wasteNum) {
+	public TableauToTableauMove (Column sourceTableauColumn, Column columnBeingDragged, Column targetTableauColumn, MutableInteger wasteNum) {
 		super();
 	
 		this.targetTableauColumn = targetTableauColumn;
-		this.cardBeingDragged = cardBeingDragged;
+		this.columnBeingDragged = columnBeingDragged;
 		this.sourceTableauColumn = sourceTableauColumn;
 		this.wasteNum = wasteNum;
 	}
@@ -42,10 +45,20 @@ public class TableauToTableauMove extends ks.common.model.Move {
 
 		// EXECUTE:
 		// Deal with both situations
-		if (cardBeingDragged == null)
+		if (columnBeingDragged == null)
 			targetTableauColumn.add (sourceTableauColumn.get());
-		else
-			targetTableauColumn.add (cardBeingDragged);
+		else {
+			Stack<Card> stack = new Stack<Card>();
+			
+			for(; columnBeingDragged.peek() != null;) {
+				Card tempCard = columnBeingDragged.get();
+				stack.push(tempCard);
+			}
+			
+			while (stack.size() != 0){
+				targetTableauColumn.add((Card)stack.pop());
+			}
+		}
 
 		return true;
 	}
@@ -75,20 +88,33 @@ public class TableauToTableauMove extends ks.common.model.Move {
 		boolean validation = false;
 
 		// If draggingCard is null, then no action has yet taken place.
-		Card c;
-		if (cardBeingDragged == null) {
+		Column c;
+		c = columnBeingDragged;
+		if (columnBeingDragged == null) {
 			if (sourceTableauColumn.empty()) return false;   // NOTHING TO EXTRACT!
-			c = sourceTableauColumn.peek();
+			//c = sourceTableauColumn.peek();
 		} else {
-			c = cardBeingDragged;
+			c = columnBeingDragged;
+		}
+		
+		Stack<Card> stack = new Stack<Card>();
+		
+		for (; c.peek() != null ;){
+			Card tempCard = c.get();
+			stack.push(tempCard);
 		}
 		
 		// moveWasteToFoundation(waste,pile) : not foundation.empty() and not waste.empty() and 
-		if ((!targetTableauColumn.empty()) && (c.getRank() == targetTableauColumn.rank() - 1) && (c.getSuit() == targetTableauColumn.suit()))
+		if ((!targetTableauColumn.empty()) && (stack.peek().getRank() == targetTableauColumn.rank() - 1) && (stack.peek().getSuit() == targetTableauColumn.suit()))
 			validation = true;
 		
 		else if (targetTableauColumn.empty()){
 			validation = true;
+		}
+		
+		// Reconstitute the column
+		while (stack.size() != 0){
+			columnBeingDragged.add((Card) stack.pop());
 		}
 
 		return validation;

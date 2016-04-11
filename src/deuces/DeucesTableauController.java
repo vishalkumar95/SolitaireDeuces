@@ -69,17 +69,17 @@ public class DeucesTableauController extends java.awt.event.MouseAdapter {
 		// Coming from the waste [number of cards being dragged must be one]
 		Column wastePile = (Column) fromWidget.getModelElement();
 
-		/** Must be the CardView widget being dragged. */
-		CardView cardView = (CardView) draggingWidget;
-		Card theCard = (Card) cardView.getModelElement();
-		if (theCard == null) {
-			System.err.println ("FoundationController::mouseReleased(): somehow CardView model element is null.");
-			c.releaseDraggingObject();
-			return;
-		}
-
 		if(fromWidget.getName().startsWith("RowView")){
 		// must use peek() so we don't modify col prematurely
+			/** Must be the CardView widget being dragged. */
+			CardView cardView = (CardView) draggingWidget;
+			Card theCard = (Card) cardView.getModelElement();
+			if (theCard == null) {
+				System.err.println ("FoundationController::mouseReleased(): somehow CardView model element is null.");
+				c.releaseDraggingObject();
+				return;
+			}
+
 			Move m = new WasteToTableauMove (wastePile, theCard, tableau, wasteNum);
 			if (m.doMove (theGame)) {
 				// Success
@@ -92,7 +92,16 @@ public class DeucesTableauController extends java.awt.event.MouseAdapter {
 		
 		else if(fromWidget.getName().startsWith("ColumnView")){
 		// must use peek() so we don't modify col prematurely
-			Move m = new TableauToTableauMove (wastePile, theCard, tableau, wasteNum);
+			/** Must be the CardView widget being dragged. */
+			ColumnView columnView = (ColumnView) draggingWidget;
+			Column theColumn = (Column) columnView.getModelElement();
+			if (theColumn == null) {
+				System.err.println ("FoundationController::mouseReleased(): somehow CardView model element is null.");
+				c.releaseDraggingObject();
+				return;
+			}
+
+			Move m = new TableauToTableauMove (wastePile, theColumn, tableau, wasteNum);
 			if (m.doMove (theGame)) {
 				// Success
 				theGame.pushMove (m);
@@ -141,10 +150,13 @@ public class DeucesTableauController extends java.awt.event.MouseAdapter {
 	
 		// Get a card to move from PileView. Note: this returns a CardView.
 		// Note that this method will alter the model for PileView if the condition is met.
-		CardView cardView = src.getCardViewForTopCard (me);
+		
+		//CardView cardView = src.getCardViewForTopCard (me);
+		
+		ColumnView movingColumnView = src.getColumnView(me);
 		
 		// an invalid selection of some sort.
-		if (cardView == null) {
+		if (movingColumnView == null) {
 			c.releaseDraggingObject();
 			return;
 		}	
@@ -159,7 +171,7 @@ public class DeucesTableauController extends java.awt.event.MouseAdapter {
 		}
 	
 		// Tell container which object is being dragged, and where in that widget the user clicked.
-		c.setActiveDraggingObject (cardView, me);
+		c.setActiveDraggingObject (movingColumnView, me);
 		
 		// Tell container which source widget initiated the drag
 		c.setDragSource (src);

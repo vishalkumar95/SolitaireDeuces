@@ -154,6 +154,10 @@ public class Deuces extends Solitaire {
 		columnView10.setMouseAdapter(new DeucesTableauController (this, columnView10, wasteNum));
 		columnView10.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		columnView10.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		scoreView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		numLeftView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		numWasteView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 	}
 	
 	/** Return the name of this solitaire variation. */

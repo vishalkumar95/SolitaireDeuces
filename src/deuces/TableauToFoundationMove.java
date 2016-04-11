@@ -2,6 +2,9 @@ package deuces;
 
 import ks.common.model.Pile;
 import ks.common.model.Column;
+
+import java.util.Stack;
+
 import ks.common.games.Solitaire;
 import ks.common.model.Card;
 
@@ -13,7 +16,7 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 	/** The wastePile. */
 	protected Column sourceTableauColumn;
 	
-	protected Card cardBeingDragged;
+	protected Column columnBeingDragged;
 	
 /**
  * DealCardMove constructor.
@@ -21,11 +24,11 @@ public class TableauToFoundationMove extends ks.common.model.Move {
  * @param Pile wastePile
  * @return 
  */
-	public TableauToFoundationMove (Column sourceTableauColumn, Card cardBeingDragged, Pile targetFoundationPile) {
+	public TableauToFoundationMove (Column sourceTableauColumn, Column columnBeingDragged, Pile targetFoundationPile) {
 		super();
 	
 		this.targetFoundationPile = targetFoundationPile;
-		this.cardBeingDragged = cardBeingDragged;
+		this.columnBeingDragged = columnBeingDragged;
 		this.sourceTableauColumn = sourceTableauColumn;
 	}
 	
@@ -41,10 +44,21 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 
 		// EXECUTE:
 		// Deal with both situations
-		if (cardBeingDragged == null)
+		if (columnBeingDragged == null)
 			targetFoundationPile.add (sourceTableauColumn.get());
-		else
-			targetFoundationPile.add (cardBeingDragged);
+		
+		else {
+			Stack<Card> stack = new Stack<Card>();
+		
+			for(; columnBeingDragged.peek() != null;) {
+				Card tempCard = columnBeingDragged.get();
+				stack.push(tempCard);
+			}
+			
+			while (stack.size() != 0){
+				targetFoundationPile.add((Card)stack.pop());
+			}
+		}
 
 		// advance score
 		theGame.updateScore (1);
@@ -78,17 +92,34 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 		boolean validation = false;
 
 		// If draggingCard is null, then no action has yet taken place.
-		Card c;
-		if (cardBeingDragged == null) {
+		Column c;
+		c = columnBeingDragged;
+		if (columnBeingDragged == null) {
 			if (sourceTableauColumn.empty()) return false;   // NOTHING TO EXTRACT!
-			c = sourceTableauColumn.peek();
+			//c = sourceTableauColumn.peek();
 		} else {
-			c = cardBeingDragged;
+			c = columnBeingDragged;
 		}
 		
-		// moveWasteToFoundation(waste,pile) : not foundation.empty() and not waste.empty() and 
-		if (!targetFoundationPile.empty() && (c.getRank() == targetFoundationPile.rank() + 1) && (c.getSuit() == targetFoundationPile.suit()))
-			validation = true;
+		Stack<Card> stack = new Stack<Card>();
+		
+		for(; c.peek() != null;) {
+			Card tempCard = c.get();
+			stack.push(tempCard);
+		}
+		
+		// moveWasteToFoundation(waste,pile) : not foundation.empty() and not waste.empty() and
+		if (stack.size() == 1){
+			if (!targetFoundationPile.empty() && (stack.peek().getRank() == targetFoundationPile.rank() + 1) && (stack.peek().getSuit() == targetFoundationPile.suit())){
+				System.err.println(stack.peek().getRank());
+				validation = true;
+			}
+		}
+		
+		// Reconstitute the column
+		while (stack.size() != 0){
+			columnBeingDragged.add((Card) stack.pop());
+		}
 
 		return validation;
 	}
