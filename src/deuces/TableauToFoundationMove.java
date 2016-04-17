@@ -18,6 +18,8 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 	
 	protected Column columnBeingDragged;
 	
+	int numSource;
+	
 /**
  * DealCardMove constructor.
  * @param Deck deck
@@ -58,6 +60,7 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 			}
 			
 			numScoreUpdate = stack.size();
+			numSource = stack.size();
 			
 			while (stack.size() != 0){
 				targetFoundationPile.add((Card)stack.pop());
@@ -80,10 +83,27 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 
 		// EXECUTE:
 		// remove card and move to waste.
-		sourceTableauColumn.add (targetFoundationPile.get());
-
+		
+		Stack<Card> stack = new Stack<Card>();
+		
+		for(int i = 0; i < numSource; i++) {
+			Card tempCard = targetFoundationPile.get();
+			stack.push(tempCard);
+		}
+		
+		// Create a new stack and store the cards in reverse order
+		Stack<Card> stacktemp = new Stack<Card>();
+		while (stack.size() != 0){
+			Card tempCardReverse = stack.pop();
+			stacktemp.push(tempCardReverse);
+		}
+		
+		while (stacktemp.size() != 0){
+			sourceTableauColumn.add ((Card)stacktemp.pop());
+		}
+		
 		// reverse score advance
-		game.updateScore (-1);
+		game.updateScore (-numSource);
 		return true;
 	}
 	/**
