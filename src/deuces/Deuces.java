@@ -243,11 +243,11 @@ public class Deuces extends Solitaire {
 
 		// add to our view (as defined within our superclass). Similar for other widgets
 		deckView = new DeckView(multiDeck);
-		deckView.setBounds(20, 120 + 4 * ci.getHeight(), ci.getWidth(), ci.getHeight());
+		deckView.setBounds(20, 120 + 6 * ci.getHeight(), ci.getWidth(), ci.getHeight());
 		container.addWidget(deckView);
 		
 		wastePileView = new RowView(wastePile);
-		wastePileView.setBounds(40 + ci.getWidth(), 120 + 4 * ci.getHeight(), 100 * ci.getWidth(), ci.getHeight());
+		wastePileView.setBounds(40 + ci.getWidth(), 120 + 6 * ci.getHeight(), 100 * ci.getWidth(), ci.getHeight());
 		container.addWidget(wastePileView);
 
 		pileView1 = new PileView(pile1);
@@ -283,43 +283,43 @@ public class Deuces extends Solitaire {
 		container.addWidget(pileView8);
 		
 		columnView1 = new ColumnView(column1);
-		columnView1.setBounds(20, 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		columnView1.setBounds(20, 40 + ci.getHeight(), ci.getWidth(), 5 * ci.getHeight());
 		container.addWidget(columnView1);
 		
 		columnView2 = new ColumnView(column2);
-		columnView2.setBounds(40 + ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		columnView2.setBounds(40 + ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 5 * ci.getHeight());
 		container.addWidget(columnView2);
 		
 		columnView3 = new ColumnView(column3);
-		columnView3.setBounds(60 + 2 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		columnView3.setBounds(60 + 2 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 5 * ci.getHeight());
 		container.addWidget(columnView3);
 		
 		columnView4 = new ColumnView(column4);
-		columnView4.setBounds(80 + 3 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		columnView4.setBounds(80 + 3 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 5 * ci.getHeight());
 		container.addWidget(columnView4);
 		
 		columnView5 = new ColumnView(column5);
-		columnView5.setBounds(100 + 4 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		columnView5.setBounds(100 + 4 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 5 * ci.getHeight());
 		container.addWidget(columnView5);
 		
 		columnView6 = new ColumnView(column6);
-		columnView6.setBounds(120 + 5 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		columnView6.setBounds(120 + 5 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 5 * ci.getHeight());
 		container.addWidget(columnView6);
 		
 		columnView7 = new ColumnView(column7);
-		columnView7.setBounds(140 + 6 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		columnView7.setBounds(140 + 6 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 5 * ci.getHeight());
 		container.addWidget(columnView7);
 		
 		columnView8 = new ColumnView(column8);
-		columnView8.setBounds(160 + 7 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		columnView8.setBounds(160 + 7 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 5 * ci.getHeight());
 		container.addWidget(columnView8);
 		
 		columnView9 = new ColumnView(column9);
-		columnView9.setBounds(180 + 8 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		columnView9.setBounds(180 + 8 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 5 * ci.getHeight());
 		container.addWidget(columnView9);
 		
 		columnView10 = new ColumnView(column10);
-		columnView10.setBounds(200 + 9 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 2 * ci.getHeight());
+		columnView10.setBounds(200 + 9 * ci.getWidth(), 40 + ci.getHeight(), ci.getWidth(), 5 * ci.getHeight());
 		container.addWidget(columnView10);
 
 		scoreView = new IntegerView(getScore());

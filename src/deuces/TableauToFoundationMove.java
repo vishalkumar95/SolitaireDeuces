@@ -59,9 +59,11 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 				stack.push(tempCard);
 			}
 			
+			// Update the integer values to be used later
 			numScoreUpdate = stack.size();
 			numSource = stack.size();
 			
+			// Add cards to the destination
 			while (stack.size() != 0){
 				targetFoundationPile.add((Card)stack.pop());
 			}
@@ -98,6 +100,7 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 			stacktemp.push(tempCardReverse);
 		}
 		
+		// Move cards back from destination to source
 		while (stacktemp.size() != 0){
 			sourceTableauColumn.add ((Card)stacktemp.pop());
 		}
@@ -125,6 +128,7 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 			c = columnBeingDragged;
 		}
 		
+		// Create a stack to store the cards from the columnBeingDragged
 		Stack<Card> stack = new Stack<Card>();
 		
 		for(; c.peek() != null;) {
@@ -140,21 +144,10 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 		}
 		
 		// moveWasteToFoundation(waste,pile) : not foundation.empty() and not waste.empty() and
-//		if (stack.size() == 1){
-//			if (!targetFoundationPile.empty() && (stack.peek().getRank() == targetFoundationPile.rank() + 1) && (stack.peek().getSuit() == targetFoundationPile.suit())){
-//				validation = true;
-//			}
-//			else if (!targetFoundationPile.empty() && (targetFoundationPile.rank() == 13 ) && (stack.peek().getRank() == 1) && (stack.peek().getSuit() == targetFoundationPile.suit())){
-//				validation = true;
-//			}
-//		}
-		
-		// moveWasteToFoundation(waste,pile) : not foundation.empty() and not waste.empty() and
 		if (!targetFoundationPile.empty() && (stacktemp.peek().getRank() == targetFoundationPile.rank() + 1) && (stacktemp.peek().getSuit() == targetFoundationPile.suit())){
 			validation = true;
-			System.out.println(validation);
 		}
-		else if (!targetFoundationPile.empty() && (targetFoundationPile.rank() == 13 ) && (stack.peek().getRank() == 1) && (stack.peek().getSuit() == targetFoundationPile.suit())){
+		else if (!targetFoundationPile.empty() && (targetFoundationPile.rank() == 13 ) && (stacktemp.peek().getRank() == 1) && (stacktemp.peek().getSuit() == targetFoundationPile.suit())){
 			validation = true;
 		}
 		
@@ -163,9 +156,6 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 			columnBeingDragged.add((Card) stacktemp.pop());
 		}
 		
-		System.out.println(validation);
-		return validation;
-		
+		return validation;		
 	}
-
 }
