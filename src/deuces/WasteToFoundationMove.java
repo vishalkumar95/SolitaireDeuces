@@ -94,6 +94,7 @@ public class WasteToFoundationMove extends ks.common.model.Move {
 		if (!targetFoundationPile.empty() && (c.getRank() == targetFoundationPile.rank() + 1) && (c.getSuit() == targetFoundationPile.suit()))
 			validation = true;
 		
+		// Check if it is an ace.
 		else if (!targetFoundationPile.empty() && (targetFoundationPile.rank() == 13 ) && (c.getRank() == 1) && (c.getSuit() == targetFoundationPile.suit())){
 			validation = true;
 		}

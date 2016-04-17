@@ -121,6 +121,10 @@ public class TableauToTableauMove extends ks.common.model.Move {
 		if ((!targetTableauColumn.empty()) && (stack.peek().getRank() == targetTableauColumn.rank() - 1) && (stack.peek().getSuit() == targetTableauColumn.suit()))
 			validation = true;
 		
+		// If the card in the tableau column is aces then it can be nuilt upon by king
+		if ((!targetTableauColumn.empty()) && (targetTableauColumn.rank() == 1) && (stack.peek().getRank() == 13) && (stack.peek().getSuit() == targetTableauColumn.suit()))
+			validation = true;
+		
 		else if (targetTableauColumn.empty()){
 			validation = true;
 		}

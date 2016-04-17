@@ -147,6 +147,8 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 		if (!targetFoundationPile.empty() && (stacktemp.peek().getRank() == targetFoundationPile.rank() + 1) && (stacktemp.peek().getSuit() == targetFoundationPile.suit())){
 			validation = true;
 		}
+		
+		// Chack if it is an ace.
 		else if (!targetFoundationPile.empty() && (targetFoundationPile.rank() == 13 ) && (stacktemp.peek().getRank() == 1) && (stacktemp.peek().getSuit() == targetFoundationPile.suit())){
 			validation = true;
 		}

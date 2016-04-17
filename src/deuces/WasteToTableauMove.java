@@ -91,6 +91,10 @@ public class WasteToTableauMove extends ks.common.model.Move {
 		if ((!targetTableauColumn.empty()) && (c.getRank() == targetTableauColumn.rank() - 1) && (c.getSuit() == targetTableauColumn.suit()))
 			validation = true;
 		
+		// If the card in the tableau column is aces then it can be nuilt upon by king
+		if ((!targetTableauColumn.empty()) && (targetTableauColumn.rank() == 1) && (c.getRank() == 13) && (c.getSuit() == targetTableauColumn.suit()))
+			validation = true;
+		
 		else if (targetTableauColumn.empty()){
 			validation = true;
 		}
