@@ -41,6 +41,8 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 		// Verify we can do the move.
 		if (valid (theGame) == false)
 			return false;
+		
+		int numScoreUpdate = 0;
 
 		// EXECUTE:
 		// Deal with both situations
@@ -55,13 +57,15 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 				stack.push(tempCard);
 			}
 			
+			numScoreUpdate = stack.size();
+			
 			while (stack.size() != 0){
 				targetFoundationPile.add((Card)stack.pop());
 			}
 		}
 
 		// advance score
-		theGame.updateScore (1);
+		theGame.updateScore (numScoreUpdate);
 		return true;
 	}
 	/**
@@ -108,22 +112,40 @@ public class TableauToFoundationMove extends ks.common.model.Move {
 			stack.push(tempCard);
 		}
 		
+		// Create a new stack and store the cards in reverse order
+		Stack<Card> stacktemp = new Stack<Card>();
+		while (stack.size() != 0){
+			Card tempCardReverse = stack.pop();
+			stacktemp.push(tempCardReverse);
+		}
+		
 		// moveWasteToFoundation(waste,pile) : not foundation.empty() and not waste.empty() and
-		if (stack.size() == 1){
-			if (!targetFoundationPile.empty() && (stack.peek().getRank() == targetFoundationPile.rank() + 1) && (stack.peek().getSuit() == targetFoundationPile.suit())){
-				validation = true;
-			}
-			else if (!targetFoundationPile.empty() && (targetFoundationPile.rank() == 13 ) && (stack.peek().getRank() == 1) && (stack.peek().getSuit() == targetFoundationPile.suit())){
-				validation = true;
-			}
+//		if (stack.size() == 1){
+//			if (!targetFoundationPile.empty() && (stack.peek().getRank() == targetFoundationPile.rank() + 1) && (stack.peek().getSuit() == targetFoundationPile.suit())){
+//				validation = true;
+//			}
+//			else if (!targetFoundationPile.empty() && (targetFoundationPile.rank() == 13 ) && (stack.peek().getRank() == 1) && (stack.peek().getSuit() == targetFoundationPile.suit())){
+//				validation = true;
+//			}
+//		}
+		
+		// moveWasteToFoundation(waste,pile) : not foundation.empty() and not waste.empty() and
+		if (!targetFoundationPile.empty() && (stacktemp.peek().getRank() == targetFoundationPile.rank() + 1) && (stacktemp.peek().getSuit() == targetFoundationPile.suit())){
+			validation = true;
+			System.out.println(validation);
+		}
+		else if (!targetFoundationPile.empty() && (targetFoundationPile.rank() == 13 ) && (stack.peek().getRank() == 1) && (stack.peek().getSuit() == targetFoundationPile.suit())){
+			validation = true;
 		}
 		
 		// Reconstitute the column
-		while (stack.size() != 0){
-			columnBeingDragged.add((Card) stack.pop());
+		while (stacktemp.size() != 0){
+			columnBeingDragged.add((Card) stacktemp.pop());
 		}
-
+		
+		System.out.println(validation);
 		return validation;
+		
 	}
 
 }
