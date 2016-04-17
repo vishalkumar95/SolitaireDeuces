@@ -19,6 +19,8 @@ public class TableauToTableauMove extends ks.common.model.Move {
 	protected Column columnBeingDragged;
 	
 	protected MutableInteger wasteNum;
+	
+	int numSource;
 /**
  * DealCardMove constructor.
  * @param Deck deck
@@ -55,6 +57,8 @@ public class TableauToTableauMove extends ks.common.model.Move {
 				stack.push(tempCard);
 			}
 			
+			numSource = stack.size();
+			
 			while (stack.size() != 0){
 				targetTableauColumn.add((Card)stack.pop());
 			}
@@ -71,10 +75,19 @@ public class TableauToTableauMove extends ks.common.model.Move {
 
 		// VALIDATE:
 		if (targetTableauColumn.empty()) return false;
+		
+		Stack<Card> stack = new Stack<Card>();
+		
+		for(int i = 0; i < numSource; i++) {
+			Card tempCard = targetTableauColumn.get();
+			stack.push(tempCard);
+		}
 
 		// EXECUTE:
-		// remove card and move to waste.
-		sourceTableauColumn.add (targetTableauColumn.get());
+		// remove card and move to waste
+		while (stack.size() != 0){
+			sourceTableauColumn.add ((Card)stack.pop());
+		}
 
 		return true;
 	}
