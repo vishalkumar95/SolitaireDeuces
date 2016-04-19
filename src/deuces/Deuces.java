@@ -26,36 +26,70 @@ import ks.launcher.Main;
 public class Deuces extends Solitaire {
 	
 	// Each game has two decks
-	protected MultiDeck multiDeck;
+	public MultiDeck multiDeck;
 	
 	// Add 8 piles to the game
-	protected Pile pile1, pile2, pile3, pile4, pile5, pile6, pile7, pile8;
+	public Pile pile1;
+
+	public Pile pile2;
+
+	public Pile pile3;
+
+	public Pile pile4;
+
+	public Pile pile5;
+
+	public Pile pile6;
+
+	public Pile pile7;
+
+	public Pile pile8;
 	
 	// Add 11 columns to the game
-	protected Column column1, column2, column3, column4, column5, column6, column7, column8, column9, column10, wastePile;
+	public Column column1;
+
+	public Column column2;
+
+	public Column column3;
+
+	public Column column4;
+
+	public Column column5;
+
+	public Column column6;
+
+	public Column column7;
+
+	public Column column8;
+
+	public Column column9;
+
+	public Column column10;
+
+	public Column wastePile;
 	
 	// Add a deck view to the game
-	protected DeckView deckView;
+	public DeckView deckView;
 	
 	// Add pile views for the piles
-	protected PileView pileView1, pileView2, pileView3, pileView4, pileView5, pileView6, pileView7, pileView8;
+	public PileView pileView1, pileView2, pileView3, pileView4, pileView5, pileView6, pileView7, pileView8;
 	
 	// Add column views for the columns
-	protected ColumnView columnView1, columnView2, columnView3, columnView4, columnView5, columnView6, columnView7, columnView8, columnView9, columnView10;
+	public ColumnView columnView1, columnView2, columnView3, columnView4, columnView5, columnView6, columnView7, columnView8, columnView9, columnView10;
 	
 	// Add a row view for the waste pile
-	protected RowView wastePileView;
+	public RowView wastePileView;
 	
 	// Add an integer view to display the score
-	protected IntegerView scoreView;
+	public IntegerView scoreView;
 	
 	// Add an integer view to display the number of cards left in the deck
-	protected IntegerView numLeftView;
+	public IntegerView numLeftView;
 	
 	// Add an integer view to display the number of cards left in the deck
-	protected IntegerView numWasteView;
+	public IntegerView numWasteView;
 
-	private MutableInteger wasteNum;
+	public MutableInteger wasteNum;
 	
 	/** To select a new deck type uncomment this method */
 	@Override
