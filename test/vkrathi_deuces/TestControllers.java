@@ -131,4 +131,52 @@ public class TestControllers extends KSTestCase {
 		// Undo the move
 		assertTrue(game.undoMove());
 	}
+	
+	// Test movement from waste pile to tableau
+	public void testTableauToTableauController(){
+	
+		// first create a column of cards in the tableau column
+		game.column3.add(new Card(Card.QUEEN, Card.DIAMONDS));
+		game.column3.add(new Card(Card.JACK, Card.DIAMONDS));
+		game.column3.add(new Card(Card.TEN, Card.DIAMONDS));
+		game.column3.add(new Card(Card.NINE, Card.DIAMONDS));
+		game.column3.add(new Card(Card.EIGHT, Card.DIAMONDS));
+		game.column3.add(new Card(Card.SEVEN, Card.DIAMONDS));
+		game.column3.add(new Card(Card.SIX, Card.DIAMONDS));
+		game.column3.add(new Card(Card.FIVE, Card.DIAMONDS));
+		game.column3.add(new Card(Card.FOUR, Card.DIAMONDS));
+		game.column3.add(new Card(Card.THREE, Card.DIAMONDS));
+		
+		// Create a mouse event by pressing on the card in the waste pile
+		MouseEvent pr = createPressed(game, game.columnView3, 0, 0);
+		game.columnView3.getMouseManager().handleMouseEvent(pr);
+		
+		// Create a mouse released event on the target tableau column
+		MouseEvent rel = createReleased(game, game.pileView3, 0, 0);
+		game.pileView3.getMouseManager().handleMouseEvent(rel);
+		
+		// Have an empty column in the tableau. Add cards to this empty column
+		game.column3.add(new Card(Card.NINE, Card.DIAMONDS));
+		game.column3.add(new Card(Card.EIGHT, Card.DIAMONDS));
+		game.column3.add(new Card(Card.SEVEN, Card.DIAMONDS));
+		
+		// Add some cards to another column
+		game.column6.add(new Card(Card.QUEEN, Card.DIAMONDS));
+		game.column6.add(new Card(Card.JACK, Card.DIAMONDS));
+		game.column6.add(new Card(Card.TEN, Card.DIAMONDS));
+		
+		// Create a mouse event by pressing on the card in the waste pile
+		MouseEvent pr1 = createPressed(game, game.columnView3, 0, 0);
+		game.columnView3.getMouseManager().handleMouseEvent(pr1);
+		
+		// Create a mouse released event on the target tableau column
+		MouseEvent rel1 = createReleased(game, game.columnView6, 0, 0);
+		game.columnView6.getMouseManager().handleMouseEvent(rel1);
+		
+		// Check if the card moved was equal
+		assertEquals(new Card(Card.SEVEN, Card.DIAMONDS), game.column6.peek());
+		
+		// Undo the move
+		assertTrue(game.undoMove());
+	}
 }
