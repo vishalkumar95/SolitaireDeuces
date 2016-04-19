@@ -8,6 +8,7 @@ import ks.common.model.Card;
 import ks.common.model.Deck;
 import ks.launcher.Main;
 import ks.tests.KSTestCase;
+import ks.tests.model.ModelFactory;
 
 public class TestControllers extends KSTestCase {
 	
@@ -49,7 +50,7 @@ public class TestControllers extends KSTestCase {
 	public void testWastePileFoundationController(){
 		
 		// first get a card in the waste pile
-		game.wastePile.add(new Card(Card.THREE, Card.DIAMONDS));
+		ModelFactory.init(game.wastePile, "3D");
 		
 		// Create a mouse event by pressing on the card in the waste pile
 		MouseEvent pr = createPressed(game, game.wastePileView, 0, 0);
@@ -79,7 +80,7 @@ public class TestControllers extends KSTestCase {
 	public void testWastePileTableauController(){
 	
 		// first get a card in the waste pile
-		game.wastePile.add(new Card(Card.QUEEN, Card.DIAMONDS));
+		ModelFactory.init(game.wastePile, "QD");
 		
 		// Create a mouse event by pressing on the card in the waste pile
 		MouseEvent pr = createPressed(game, game.wastePileView, 0, 0);
@@ -103,16 +104,7 @@ public class TestControllers extends KSTestCase {
 	public void testTableauToFoundationController(){
 	
 		// first create a column of cards in the tableau column
-		game.column3.add(new Card(Card.QUEEN, Card.DIAMONDS));
-		game.column3.add(new Card(Card.JACK, Card.DIAMONDS));
-		game.column3.add(new Card(Card.TEN, Card.DIAMONDS));
-		game.column3.add(new Card(Card.NINE, Card.DIAMONDS));
-		game.column3.add(new Card(Card.EIGHT, Card.DIAMONDS));
-		game.column3.add(new Card(Card.SEVEN, Card.DIAMONDS));
-		game.column3.add(new Card(Card.SIX, Card.DIAMONDS));
-		game.column3.add(new Card(Card.FIVE, Card.DIAMONDS));
-		game.column3.add(new Card(Card.FOUR, Card.DIAMONDS));
-		game.column3.add(new Card(Card.THREE, Card.DIAMONDS));
+		ModelFactory.init(game.column3, "KD QD JD 10D 9D 8D 7D 6D 5D 4D 3D");
 		
 		// Create a mouse event by pressing on the card in the waste pile
 		MouseEvent pr = createPressed(game, game.columnView3, 0, 0);
@@ -136,16 +128,7 @@ public class TestControllers extends KSTestCase {
 	public void testTableauToTableauController(){
 	
 		// first create a column of cards in the tableau column
-		game.column3.add(new Card(Card.QUEEN, Card.DIAMONDS));
-		game.column3.add(new Card(Card.JACK, Card.DIAMONDS));
-		game.column3.add(new Card(Card.TEN, Card.DIAMONDS));
-		game.column3.add(new Card(Card.NINE, Card.DIAMONDS));
-		game.column3.add(new Card(Card.EIGHT, Card.DIAMONDS));
-		game.column3.add(new Card(Card.SEVEN, Card.DIAMONDS));
-		game.column3.add(new Card(Card.SIX, Card.DIAMONDS));
-		game.column3.add(new Card(Card.FIVE, Card.DIAMONDS));
-		game.column3.add(new Card(Card.FOUR, Card.DIAMONDS));
-		game.column3.add(new Card(Card.THREE, Card.DIAMONDS));
+		ModelFactory.init(game.column3, "KD QD JD 10D 9D 8D 7D 6D 5D 4D 3D");
 		
 		// Create a mouse event by pressing on the card in the waste pile
 		MouseEvent pr = createPressed(game, game.columnView3, 0, 0);
@@ -156,14 +139,10 @@ public class TestControllers extends KSTestCase {
 		game.pileView3.getMouseManager().handleMouseEvent(rel);
 		
 		// Have an empty column in the tableau. Add cards to this empty column
-		game.column3.add(new Card(Card.NINE, Card.DIAMONDS));
-		game.column3.add(new Card(Card.EIGHT, Card.DIAMONDS));
-		game.column3.add(new Card(Card.SEVEN, Card.DIAMONDS));
+		ModelFactory.init(game.column3, "9D 8D 7D");
 		
 		// Add some cards to another column
-		game.column6.add(new Card(Card.QUEEN, Card.DIAMONDS));
-		game.column6.add(new Card(Card.JACK, Card.DIAMONDS));
-		game.column6.add(new Card(Card.TEN, Card.DIAMONDS));
+		ModelFactory.init(game.column6, "QD JD 10D");
 		
 		// Create a mouse event by pressing on the card in the waste pile
 		MouseEvent pr1 = createPressed(game, game.columnView3, 0, 0);
