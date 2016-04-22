@@ -8,6 +8,7 @@ import ks.client.gamefactory.GameWindow;
 import ks.common.model.Card;
 import ks.common.model.Deck;
 import ks.launcher.Main;
+import ks.tests.model.ModelFactory;
 
 public class TestWasteToFoundationMove extends TestCase {
 	
@@ -50,10 +51,27 @@ public class TestWasteToFoundationMove extends TestCase {
 		
 		boolean value2 = dom1.valid(deuces);
 		
-		//assertEquals(true, value2);
+		// Test the ACE and then king in foundation move
+	}
+	
+	public void testWasteToFoundationMoveMore(){
 		
-		//dom1.doMove(deuces);
+		// Add an ace in one of the tableau columns
+		ModelFactory.init(deuces.column1, "1D");
+		ModelFactory.init(deuces.pile1, "KD");
 		
-		// 
+		Card topCardTableauColumn = deuces.column1.peek();
+		
+		WasteToFoundationMove wtm = new WasteToFoundationMove(deuces.wastePile, topCardTableauColumn, deuces.pile1, deuces.wasteNum);
+		
+		boolean value = wtm.valid(deuces);
+		
+		assertEquals(true, value);
+		
+		wtm.doMove(deuces);
+		
+		assertEquals(topCardTableauColumn, deuces.pile1.peek());
+		
+		wtm.undo(deuces);
 	}
 }
