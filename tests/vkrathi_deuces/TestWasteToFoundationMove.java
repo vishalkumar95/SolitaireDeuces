@@ -51,16 +51,17 @@ public class TestWasteToFoundationMove extends TestCase {
 		
 		boolean value2 = dom1.valid(deuces);
 		
-		// Test the ACE and then king in foundation move
+		assertEquals(false, value2);
+		
 	}
 	
 	public void testWasteToFoundationMoveMore(){
 		
 		// Add an ace in one of the tableau columns
-		ModelFactory.init(deuces.column1, "1D");
+		ModelFactory.init(deuces.wastePile, "1D");
 		ModelFactory.init(deuces.pile1, "KD");
 		
-		Card topCardTableauColumn = deuces.column1.peek();
+		Card topCardTableauColumn = deuces.wastePile.peek();
 		
 		WasteToFoundationMove wtm = new WasteToFoundationMove(deuces.wastePile, topCardTableauColumn, deuces.pile1, deuces.wasteNum);
 		
@@ -73,5 +74,49 @@ public class TestWasteToFoundationMove extends TestCase {
 		assertEquals(topCardTableauColumn, deuces.pile1.peek());
 		
 		wtm.undo(deuces);
+	}
+	
+	public void testWasteToFoundationMoveMore1(){
+		
+		// Empty wastePile
+		ModelFactory.init(deuces.wastePile, "");
+		ModelFactory.init(deuces.pile1, "KD");
+		
+		Card topCardTableauColumn = deuces.wastePile.peek();
+		
+		WasteToFoundationMove wtm = new WasteToFoundationMove(deuces.wastePile, topCardTableauColumn, deuces.pile1, deuces.wasteNum);
+		
+		boolean value = wtm.valid(deuces);
+		
+		assertEquals(false, value);
+		
+		boolean value1 = wtm.doMove(deuces);
+		
+		assertEquals(false, value1);
+		
+		wtm.undo(deuces);
+	}
+	
+	public void testWasteToFoundationMoveMore2(){
+		
+		// Empty wastePile
+		ModelFactory.init(deuces.wastePile, "1D");
+		ModelFactory.init(deuces.pile1, "");
+		
+		Card topCardTableauColumn = deuces.wastePile.peek();
+		
+		WasteToFoundationMove wtm = new WasteToFoundationMove(deuces.wastePile, topCardTableauColumn, deuces.pile1, deuces.wasteNum);
+		
+		boolean value = wtm.valid(deuces);
+		
+		assertEquals(false, value);
+		
+		boolean value1 = wtm.doMove(deuces);
+		
+		assertEquals(false, value1);
+		
+		boolean value3 = wtm.undo(deuces);
+		
+		assertEquals(false, value3);
 	}
 }

@@ -40,7 +40,7 @@ public class TestTableauToTableauMove extends TestCase {
 		
 		ttm.doMove(deuces);
 		
-		assertEquals(null, deuces.columnView2.getModelElement());
+		assertEquals(true, deuces.column2.empty());
 		
 		ttm.undo(deuces);
 	}
@@ -64,7 +64,7 @@ public class TestTableauToTableauMove extends TestCase {
 		
 		ttm.doMove(deuces);
 		
-		assertEquals(null, deuces.columnView2.getModelElement());
+		assertEquals(true, deuces.column2.empty());
 		
 		ttm.undo(deuces);
 	}

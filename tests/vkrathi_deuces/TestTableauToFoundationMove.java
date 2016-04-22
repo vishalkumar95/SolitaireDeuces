@@ -41,7 +41,7 @@ public class TestTableauToFoundationMove extends TestCase {
 		
 		tfm.doMove(deuces);
 		
-		assertEquals(null, deuces.columnView2.getModelElement());
+		assertEquals(true, deuces.column2.empty());
 		
 		tfm.undo(deuces);
 	}

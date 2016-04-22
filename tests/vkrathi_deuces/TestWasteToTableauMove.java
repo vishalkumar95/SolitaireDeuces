@@ -2,6 +2,7 @@ package vkrathi_deuces;
 
 import deuces.DealOneMove;
 import deuces.Deuces;
+import deuces.WasteToFoundationMove;
 import deuces.WasteToTableauMove;
 import junit.framework.TestCase;
 import ks.client.gamefactory.GameWindow;
@@ -77,5 +78,49 @@ public class TestWasteToTableauMove extends TestCase {
 		assertEquals(topCardWastePile, deuces.column1.peek());
 		
 		wtm.undo(deuces);
+	}
+	
+public void testWasteToTableauMoveMore1(){
+		
+		// Empty wastePile
+		ModelFactory.init(deuces.wastePile, "");
+		ModelFactory.init(deuces.column1, "KD");
+		
+		Card topCardTableauColumn = deuces.wastePile.peek();
+		
+		WasteToTableauMove wtm = new WasteToTableauMove(deuces.wastePile, topCardTableauColumn, deuces.column1, deuces.wasteNum);
+		
+		boolean value = wtm.valid(deuces);
+		
+		assertEquals(false, value);
+		
+		boolean value1 = wtm.doMove(deuces);
+		
+		assertEquals(false, value1);
+		
+		wtm.undo(deuces);
+	}
+	
+	public void testWasteToTableauMoveMore2(){
+		
+		// Empty wastePile
+		ModelFactory.init(deuces.wastePile, "");
+		ModelFactory.init(deuces.column1, "");
+		
+		Card topCardTableauColumn = deuces.wastePile.peek();
+		
+		WasteToTableauMove wtm = new WasteToTableauMove(deuces.wastePile, topCardTableauColumn, deuces.column1, deuces.wasteNum);
+		
+		boolean value = wtm.valid(deuces);
+		
+		assertEquals(false, value);
+		
+		boolean value1 = wtm.doMove(deuces);
+		
+		assertEquals(false, value1);
+		
+		boolean value3 = wtm.undo(deuces);
+		
+		assertEquals(false, value3);
 	}
 }
