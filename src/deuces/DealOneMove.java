@@ -15,8 +15,9 @@ public class DealOneMove extends ks.common.model.Move {
 	protected MutableInteger wasteNum;
 /**
  * DealCardMove constructor.
- * @param Deck deck
+ * @param MultiDeck multiDeck
  * @param Pile wastePile
+ * @param MutableInteger wasteNum
  */
 	public DealOneMove (MultiDeck multiDeck,  Column wastePile, MutableInteger wasteNum) {
 		super();

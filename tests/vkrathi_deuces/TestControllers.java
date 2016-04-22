@@ -20,12 +20,7 @@ public class TestControllers extends KSTestCase {
 	
 	protected void setUp() {
 		game = new Deuces();
-		
-		// Because solitaire variations are expected to run within a container, we need to 
-		// do this, even though the Container will never be made visible. Note that here
-		// we select the "random seed" by which the deck will be shuffled. We use the 
-		// special constant Deck.OrderBySuit (-2) which orders the deck from Ace of clubs
-		// right to King of spades.
+		// Generate the window
 		gw = Main.generateWindow(game, Deck.OrderByRank);	
 	}
 	
@@ -69,11 +64,6 @@ public class TestControllers extends KSTestCase {
 		
 		// Undo the move
 		assertTrue(game.undoMove());
-		
-//		// Check the waste number
-//		int value = game.wasteNum.getValue();
-//		assertEquals(1, value);
-		
 	}
 	
 	// Test movement from waste pile to tableau

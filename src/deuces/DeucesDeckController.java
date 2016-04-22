@@ -20,7 +20,7 @@ public class DeucesDeckController extends SolitaireReleasedAdapter {
 	protected MutableInteger wasteNum;
 
 	/**
-	 * KlondikeDeckController constructor comment.
+	 * DeucesDeckController constructor comment.
 	 */
 	public DeucesDeckController(Deuces theGame, MultiDeck d, Column wastePile, MutableInteger wasteNum ) {
 		super(theGame);

@@ -452,7 +452,3 @@ public class Deuces extends Solitaire {
 	}
 
 }
-
-
-// TODO : Add the functionality to add column of cards in the foundation
-// TODO : Check if we can add ace in the column in the tableau
