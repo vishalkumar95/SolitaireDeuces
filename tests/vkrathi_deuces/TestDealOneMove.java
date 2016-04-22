@@ -64,5 +64,8 @@ public class TestDealOneMove extends TestCase {
 		boolean value3 = dom1.undo(deuces);
 		assertEquals(false, value3);
 		
+		// See we have not won
+		assertEquals(false, deuces.hasWon());
+		
 	}
 }
