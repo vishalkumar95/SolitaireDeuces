@@ -1,14 +1,14 @@
 package vkrathi_deuces;
 
-import deuces.DealOneMove;
-import deuces.Deuces;
-import deuces.WasteToFoundationMove;
 import junit.framework.TestCase;
 import ks.client.gamefactory.GameWindow;
 import ks.common.model.Card;
 import ks.common.model.Deck;
 import ks.launcher.Main;
 import ks.tests.model.ModelFactory;
+import vkrathi_deuces.DealOneMove;
+import vkrathi_deuces.Deuces;
+import vkrathi_deuces.WasteToFoundationMove;
 
 public class TestWasteToFoundationMove extends TestCase {
 	

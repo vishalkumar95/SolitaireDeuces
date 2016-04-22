@@ -1,14 +1,15 @@
-package deuces;
+package vkrathi_deuces;
 
+import ks.common.model.Pile;
 import ks.common.model.Column;
 import ks.common.model.MutableInteger;
 import ks.common.games.Solitaire;
 import ks.common.model.Card;
 
-public class WasteToTableauMove extends ks.common.model.Move {
+public class WasteToFoundationMove extends ks.common.model.Move {
 	
 	/** The deck. */
-	protected Column targetTableauColumn;
+	protected Pile targetFoundationPile;
 
 	/** The wastePile. */
 	protected Column wastePile;
@@ -21,10 +22,10 @@ public class WasteToTableauMove extends ks.common.model.Move {
  * @param Deck deck
  * @param Pile wastePile
  */
-	public WasteToTableauMove (Column wastePile, Card cardBeingDragged, Column targetTableauColumn, MutableInteger wasteNum) {
+	public WasteToFoundationMove (Column wastePile, Card cardBeingDragged, Pile targetFoundationPile, MutableInteger wasteNum) {
 		super();
 	
-		this.targetTableauColumn = targetTableauColumn;
+		this.targetFoundationPile = targetFoundationPile;
 		this.cardBeingDragged = cardBeingDragged;
 		this.wastePile = wastePile;
 		this.wasteNum = wasteNum;
@@ -43,12 +44,13 @@ public class WasteToTableauMove extends ks.common.model.Move {
 		// EXECUTE:
 		// Deal with both situations
 		if (cardBeingDragged == null)
-			targetTableauColumn.add (wastePile.get());
+			targetFoundationPile.add (wastePile.get());
 		else
-			targetTableauColumn.add (cardBeingDragged);
-		
-		wasteNum.increment(-1);
+			targetFoundationPile.add (cardBeingDragged);
 
+		// advance score
+		theGame.updateScore (1);
+		wasteNum.increment(-1);
 		return true;
 	}
 	/**
@@ -59,14 +61,15 @@ public class WasteToTableauMove extends ks.common.model.Move {
 	public boolean undo(ks.common.games.Solitaire game) {
 
 		// VALIDATE:
-		if (targetTableauColumn.empty()) return false;
+		if (targetFoundationPile.empty()) return false;
 
 		// EXECUTE:
 		// remove card and move to waste.
-		wastePile.add (targetTableauColumn.get());
-		
-		wasteNum.increment(1);
+		wastePile.add (targetFoundationPile.get());
 
+		// reverse score advance
+		game.updateScore (-1);
+		wasteNum.increment(1);
 		return true;
 	}
 	/**
@@ -88,14 +91,11 @@ public class WasteToTableauMove extends ks.common.model.Move {
 		}
 		
 		// moveWasteToFoundation(waste,pile) : not foundation.empty() and not waste.empty() and 
-		if ((!targetTableauColumn.empty()) && (c.getRank() == targetTableauColumn.rank() - 1) && (c.getSuit() == targetTableauColumn.suit()))
+		if (!targetFoundationPile.empty() && (c.getRank() == targetFoundationPile.rank() + 1) && (c.getSuit() == targetFoundationPile.suit()))
 			validation = true;
 		
-		// If the card in the tableau column is aces then it can be nuilt upon by king
-		if ((!targetTableauColumn.empty()) && (targetTableauColumn.rank() == 1) && (c.getRank() == 13) && (c.getSuit() == targetTableauColumn.suit()))
-			validation = true;
-		
-		else if (targetTableauColumn.empty()){
+		// Check if it is an ace.
+		else if (!targetFoundationPile.empty() && (targetFoundationPile.rank() == 13 ) && (c.getRank() == 1) && (c.getSuit() == targetFoundationPile.suit())){
 			validation = true;
 		}
 

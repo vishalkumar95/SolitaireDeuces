@@ -2,12 +2,12 @@ package vkrathi_deuces;
 
 import java.util.Random;
 
-import deuces.DealOneMove;
-import deuces.Deuces;
 import junit.framework.TestCase;
 import ks.client.gamefactory.GameWindow;
 import ks.common.model.Card;
 import ks.launcher.Main;
+import vkrathi_deuces.DealOneMove;
+import vkrathi_deuces.Deuces;
 
 public class TestDealOneMove extends TestCase {
 	

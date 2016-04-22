@@ -1,9 +1,10 @@
-package deuces;
+package vkrathi_deuces;
 
 import java.awt.Dimension;
 import java.util.Random;
 import java.util.Stack;
 
+import vkrathi_deuces.DeucesDeckController;
 import ks.client.gamefactory.GameWindow;
 import ks.common.controller.SolitaireMouseMotionAdapter;
 import ks.common.controller.SolitaireReleasedAdapter;

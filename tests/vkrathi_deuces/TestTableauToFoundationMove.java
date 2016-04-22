@@ -1,8 +1,5 @@
 package vkrathi_deuces;
 
-import deuces.Deuces;
-import deuces.TableauToFoundationMove;
-import deuces.TableauToTableauMove;
 import junit.framework.TestCase;
 import ks.client.gamefactory.GameWindow;
 import ks.common.model.Card;
@@ -10,6 +7,9 @@ import ks.common.model.Column;
 import ks.common.model.Deck;
 import ks.launcher.Main;
 import ks.tests.model.ModelFactory;
+import vkrathi_deuces.Deuces;
+import vkrathi_deuces.TableauToFoundationMove;
+import vkrathi_deuces.TableauToTableauMove;
 
 public class TestTableauToFoundationMove extends TestCase {
 	

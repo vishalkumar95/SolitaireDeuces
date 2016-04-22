@@ -1,9 +1,10 @@
-package deuces;
+package vkrathi_deuces;
 
-import deuces.Deuces;
+import vkrathi_deuces.DealOneMove;
 import ks.common.controller.SolitaireReleasedAdapter;
 import ks.common.model.MultiDeck;
 import ks.common.model.MutableInteger;
+import vkrathi_deuces.Deuces;
 import ks.common.model.Move;
 import ks.common.model.Column;
 

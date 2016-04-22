@@ -1,4 +1,4 @@
-package deuces;
+package vkrathi_deuces;
 
 import java.awt.event.MouseEvent;
 

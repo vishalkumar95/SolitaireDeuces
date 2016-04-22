@@ -1,4 +1,4 @@
-package deuces;
+package vkrathi_deuces;
 
 import ks.common.model.Pile;
 import ks.common.model.Column;

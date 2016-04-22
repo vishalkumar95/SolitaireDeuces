@@ -1,4 +1,4 @@
-package deuces;
+package vkrathi_deuces;
 
 import ks.common.model.MultiDeck;
 import ks.common.model.MutableInteger;

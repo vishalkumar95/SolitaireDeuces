@@ -2,13 +2,13 @@ package vkrathi_deuces;
 
 import java.awt.event.MouseEvent;
 
-import deuces.Deuces;
 import ks.client.gamefactory.GameWindow;
 import ks.common.model.Card;
 import ks.common.model.Deck;
 import ks.launcher.Main;
 import ks.tests.KSTestCase;
 import ks.tests.model.ModelFactory;
+import vkrathi_deuces.Deuces;
 
 public class TestControllers extends KSTestCase {
 	
