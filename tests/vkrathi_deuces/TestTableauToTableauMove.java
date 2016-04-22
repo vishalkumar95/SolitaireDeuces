@@ -40,7 +40,31 @@ public class TestTableauToTableauMove extends TestCase {
 		
 		ttm.doMove(deuces);
 		
-		//assertEquals(topCardWastePile, deuces.column1.peek());
+		assertEquals(null, deuces.columnView2.getModelElement());
+		
+		ttm.undo(deuces);
+	}
+	
+	public void testTableauToTableauMoveMore(){
+		
+		// Test that the ace can be built upon by kings
+		
+		// Add an ace in one of the tableau columns
+		ModelFactory.init(deuces.column1, "");
+		ModelFactory.init(deuces.column2, "KD QD JD");
+		
+		// Get the column to move
+		Column draggingColumn = (Column) deuces.columnView2.getModelElement();
+		
+		TableauToTableauMove ttm = new TableauToTableauMove(deuces.column2, draggingColumn, deuces.column1, deuces.wasteNum);
+		
+		boolean value = ttm.valid(deuces);
+		
+		assertEquals(true, value);
+		
+		ttm.doMove(deuces);
+		
+		assertEquals(null, deuces.columnView2.getModelElement());
 		
 		ttm.undo(deuces);
 	}
