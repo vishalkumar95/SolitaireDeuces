@@ -189,9 +189,20 @@ public class Deuces extends Solitaire {
 		columnView10.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
 		columnView10.setUndoAdapter (new SolitaireUndoAdapter(this));
 		
+		// same for scoreView
 		scoreView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		scoreView.setMouseAdapter (new SolitaireReleasedAdapter(this));
+		scoreView.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		// same for numView
 		numLeftView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		numLeftView.setMouseAdapter (new SolitaireReleasedAdapter(this));
+		numLeftView.setUndoAdapter (new SolitaireUndoAdapter(this));
+		
+		// same for scoreView
 		numWasteView.setMouseMotionAdapter (new SolitaireMouseMotionAdapter(this));
+		numWasteView.setMouseAdapter (new SolitaireReleasedAdapter(this));
+		numWasteView.setUndoAdapter (new SolitaireUndoAdapter(this));
 	}
 	
 	/** Return the name of this solitaire variation. */
